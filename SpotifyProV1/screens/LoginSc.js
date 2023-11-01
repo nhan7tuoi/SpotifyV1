@@ -1,52 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, SafeAreaView, View, Image, Pressable, Text } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import axios from 'axios';
 
 WebBrowser.maybeCompleteAuthSession();
 const discovery = {
     authorizationEndpoint: 'https://accounts.spotify.com/authorize',
     tokenEndpoint: 'https://accounts.spotify.com/api/token',
 };
-export default function App({navigation}) {
+export default function App({ navigation }) {
+    const [authenCode, setAuthenCode] = useState('');
+    const [accessToken, setAccessToken] = useState('');
+
     const [request, response, promptAsync] = useAuthRequest(
         {
-            clientId: '390d9192045b41de9380bed729d9e7c7',
+            clientId: 'd1cb5b9263ac4a2d8995fb9444df00f6',
             scopes: [
-                'user-read-email',
-                'playlist-modify-public',
-                'playlist-read-private',
-                'playlist-modify-private',
-                'user-library-read',
-                'user-library-modify',
-                'user-read-playback-state',
-                'user-modify-playback-state',
-                'user-read-currently-playing',
-                'user-read-recently-played',
+                "user-read-email",
+                "user-library-read",
+                "user-read-recently-played",
+                "user-top-read",
+                "playlist-read-private",
+                "playlist-read-collaborative",
+                "playlist-modify-public"
             ],
-            usePKCE: false,
             redirectUri: makeRedirectUri({
-                scheme: 'your.app'
+                scheme: 'exp'
             }),
         },
         discovery
     );
+
     useEffect(() => {
         if (response?.type === 'success') {
             const { code } = response.params;
-            AsyncStorage.setItem('spotifyToken', code)
-                .then(() => {
-                    console.log('Token saved to AsyncStorage:', code);
-                })
-                .catch((error) => {
-                    console.error('Error saving token to AsyncStorage:', error);
-                });
+            setAuthenCode(code);
+            getToken(authenCode);
         }
     }, [response]);
+    const getToken = async (code) => {
+        const data = new URLSearchParams();
+        data.append('grant_type', 'authorization_code');
+        data.append('code', code);
+        data.append('redirect_uri', 'exp://192.168.2.39:8081'); // Thay 'your_redirect_uri' bằng địa chỉ redirectUri của bạn
+        data.append('client_id', 'd1cb5b9263ac4a2d8995fb9444df00f6'); // Thay 'your_client_id' bằng clientId của bạn
+        data.append('client_secret', '9b2a020c4c834491b51d3b16940f3862'); // Thay 'your_client_secret' bằng client secret của bạn
+
+        try {
+            const response = await axios.post('https://accounts.spotify.com/api/token', data, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+            const accessToken = response.data.access_token;
+            console.log('Access Token:', accessToken);
+            // Lưu trữ access token ở đây hoặc sử dụng nó cho các yêu cầu sau.
+        } catch (error) {
+            console.error('Error getting access token:', error);
+        }
+    };
+
+    useEffect(() => {
+        // Kiểm tra xem đã có accessToken, nếu có thì điều hướng đến màn hình Main
+        if (accessToken) {
+            navigation.navigate('Main');
+        }
+    }, [accessToken]);
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView style={styles.container}>
@@ -64,9 +87,7 @@ export default function App({navigation}) {
                     </View>
                     <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                         <Pressable
-                            onPress={() => {
-                                promptAsync();
-                            }}
+                            onPress={() => promptAsync()}
                             style={{ width: '80%', height: 50, backgroundColor: '#1CDE43', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
                                 Login with Spotify

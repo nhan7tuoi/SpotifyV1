@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "exp",
     "name": "SpotifyProV1",
     "slug": "SpotifyProV1",
     "version": "1.0.0",
@@ -15,16 +16,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.spotifyV1"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "com.spotify"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fff92840-50a5-4598-888c-0d143f75b3bf"
+      }
     }
   }
 }
