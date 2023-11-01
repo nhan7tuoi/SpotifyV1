@@ -2,22 +2,25 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import HomeScreen from "./screens/HomeSc";
 import SearchScreen from "./screens/SearchSc";
 import LibraryScreen from "./screens/LibrarySc";
 import PremiumScreen from "./screens/PremiumSc";
 import LoginScreen from "./screens/LoginSc";
+import ThanhNhac from './components/ThanhNhac';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function BottomTabs() {
   return (
+    <>
+    <ThanhNhac/>
     <Tab.Navigator screenOptions={{
       headerShown: false,
       tabBarStyle: {
-        backgroundColor: "rgba(0,0,0,0.5)",
+        backgroundColor: "rgba(0,0,0,0.65)",
         position: "absolute",
         bottom: 0,
         left: 0,
@@ -30,19 +33,19 @@ function BottomTabs() {
           height: -4
         },
         borderTopWidth: 0
-      }
+      },
+      tabBarActiveTintColor: 'white',
     }}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarLabelStyle: { color: "white" },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconHome.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconHome.png')} />
             ) : (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconHome-1.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconHome-1.png')} />
             ),
         }}
       />
@@ -51,12 +54,11 @@ function BottomTabs() {
         component={SearchScreen}
         options={{
           tabBarLabel: "Search",
-          tabBarLabelStyle: { color: "white" },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconSearch-1.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconSearch-1.png')} />
             ) : (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconSearch.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconSearch.png')} />
             ),
         }}
       />
@@ -65,12 +67,11 @@ function BottomTabs() {
         component={LibraryScreen}
         options={{
           tabBarLabel: "Library",
-          tabBarLabelStyle: { color: "white" },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconLib-1.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconLib-1.png')} />
             ) : (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconLib.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconLib.png')} />
             ),
         }}
       />
@@ -79,16 +80,16 @@ function BottomTabs() {
         component={PremiumScreen}
         options={{
           tabBarLabel: "Premium",
-          tabBarLabelStyle: { color: "white" },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconPremium.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconPremium.png')} />
             ) : (
-              <Image style={{width:24,height:24}} source={require('./assets/icon/VectoriconPremium.png')}/>
+              <Image style={{ width: 24, height: 24 }} source={require('./assets/icon/VectoriconPremium.png')} />
             ),
         }}
       />
-    </Tab.Navigator>
+    </Tab.Navigator >
+    </>
   )
 }
 
