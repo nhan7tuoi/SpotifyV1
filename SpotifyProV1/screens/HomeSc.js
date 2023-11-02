@@ -6,10 +6,13 @@ import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import ListCard from '../components/ListCardYourTop';
+import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
 
-export default function App() {
+export default function App({ navigation }) {
     const [recentlyPlayed, setRecentlyPlayed] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [arrMusic, setArrMusic] = useState(listMusic);
 
     useEffect(() => {
         // Hàm để lấy access_token từ AsyncStorage khi component được mount
@@ -17,7 +20,7 @@ export default function App() {
             try {
                 const token = await AsyncStorage.getItem('token');
                 if (token) {
-                    console.log('Token Home',token)
+                    console.log('Token Home', token)
                     setAccessToken(token);
                 }
             } catch (error) {
@@ -28,22 +31,22 @@ export default function App() {
     }, []);
     const getRecentlyPlayedSongs = async (accessToken) => {
         try {
-          const response = await axios({
-            method: "GET",
-            url: "https://api.spotify.com/v1/me/player/recently-played?limit=10",
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          const tracks = response.data.items;
-          setRecentlyPlayed(tracks);
+            const response = await axios({
+                method: "GET",
+                url: "https://api.spotify.com/v1/me/player/recently-played?limit=10",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const tracks = response.data.items;
+            setRecentlyPlayed(tracks);
         } catch (err) {
-          console.log(err.message);
+            console.log(err.message);
         }
-      };
-      useEffect(() => {
+    };
+    useEffect(() => {
         getRecentlyPlayedSongs(accessToken);
-      }, [accessToken]);
+    }, [accessToken]);
 
     const greetingMessage = () => {
         const currentTime = new Date().getHours();
@@ -56,9 +59,7 @@ export default function App() {
         }
     };
     const message = greetingMessage();
-    console.log(recentlyPlayed)
-    console.log('Token Home',accessToken)
-    console.log('Token Home',accessToken)
+    console.log('recentlyPlayed', recentlyPlayed)
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView>
@@ -86,7 +87,7 @@ export default function App() {
                                 <Text style={{ color: '#fff', fontWeight: '500' }}>Podcast và chường trình</Text>
                             </Pressable>
                         </View>
-                        {/* dang phat gan day */}
+                        {/* Top Track */}
                         <View style={{ width: '100%', height: 220, marginBottom: 20 }}>
                             {/* <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Đang phát gần đây</Text> */}
                             <View>
@@ -95,103 +96,24 @@ export default function App() {
                                     numColumns={2}
                                     renderItem={({ item }) => {
                                         return (
-                                            <View style={{ width: '48%', height: 50, marginTop: 10, marginRight: 15, backgroundColor: '#282828', borderRadius: 10, flexDirection: 'row' }}>
+                                            <Pressable
+                                                style={{ width: '48%', height: 50, marginTop: 10, marginRight: 15, backgroundColor: '#282828', borderRadius: 10, flexDirection: 'row' }}
+                                                onPress={() => {
+                                                    navigation.navigate('Album', {arrMusic,nameItem:item.name, imgItem: item.img})
+                                                }}>
                                                 <Image resizeMode='contain' source={item.img} style={{ width: '30%', height: '100%', borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} />
                                                 <View style={{ width: '60%', height: '100%', justifyContent: 'center', marginLeft: 10 }}>
                                                     <Text style={{ color: '#fff', fontSize: 14, fontWeight: 700 }}>{item.name}</Text>
                                                 </View>
-                                            </View>
+                                            </Pressable>
                                         )
                                     }}
                                 />
                             </View>
                         </View>
-                        {/* Tuyển tập hàng đầu của bạn */}
-                        <View style={{ width: '100%', height: 230, marginBottom: 20 }}>
-                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Tuyển tập hàng đầu của bạn</Text>
-                            <View>
-                                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                                    <FlatList data={arrTuyenTap}
-                                        horizontal={true}
-                                        renderItem={({ item }) => {
-                                            return (
-                                                <View style={{ marginRight: 20 }}>
-                                                    <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={item.img} />
-                                                    </View>
-                                                    <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.title}</Text>
-                                                </View>
-                                            )
-                                        }}
-                                    />
-                                </ScrollView>
-                            </View>
-                        </View>
-                        {/* nhân bản*/}
-                        <View style={{ width: '100%', height: 230, marginBottom: 20 }}>
-                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Mới phát gần đây</Text>
-                            <View>
-                                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                                    <FlatList data={recentlyPlayed}
-                                        horizontal={true}
-                                        renderItem={({ item }) => {
-                                            return (
-                                                <View style={{ marginRight: 20 }}>
-                                                    <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{uri:item.track.album.images[0].url}} />
-                                                    </View>
-                                                    <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.track.name}</Text>
-                                                </View>
-                                            )
-                                        }}
-                                    />
-                                </ScrollView>
-                            </View>
-                        </View>
-                        {/*  */}
-                        <View style={{ width: '100%', height: 230, marginBottom: 20 }}>
-                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Tuyển tập hàng đầu</Text>
-                            <View>
-                                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                                    <FlatList data={arrTuyenTap}
-                                        horizontal={true}
-                                        renderItem={({ item }) => {
-                                            return (
-                                                <View style={{ marginRight: 20 }}>
-                                                    <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={item.img} />
-                                                    </View>
-                                                    <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.title}</Text>
-                                                </View>
-                                            )
-                                        }}
-                                    />
-                                </ScrollView>
-                            </View>
-                        </View>
-                        {/*  */}
-                        <View style={{ width: '100%', height: 230, marginBottom: 20 }}>
-                            <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Tuyển tập hàng đầu của bạn</Text>
-                            <View>
-                                <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-                                    <View style={{ width: '100%' }}>
-                                        <FlatList data={arrTuyenTap}
-                                            horizontal={true}
-                                            renderItem={({ item }) => {
-                                                return (
-                                                    <View style={{ marginRight: 20 }}>
-                                                        <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                                            <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={item.img} />
-                                                        </View>
-                                                        <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.title}</Text>
-                                                    </View>
-                                                )
-                                            }}
-                                        />
-                                    </View>
-                                </ScrollView>
-                            </View>
-                        </View>    
+                        {/* Mới phát gần đây */}
+                        <RecentlyPlayedCard arr={recentlyPlayed} txtHeader='Mới phát gần đây' />
+                        <ListCard arr={arrTuyenTap} txtHeader='Tuyển tập hàng đầu của bạn' />
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -201,11 +123,11 @@ export default function App() {
 
 const arrTop = [
     { img: require('../assets/img/bray.jpg'), name: 'Bray' },
-    { img: require('../assets/img/nhan.jpg'), name: 'Nhân Ka' },
+    { img: require('../assets/img/binz.jpg'), name: 'BinZ' },
     { img: require('../assets/img/den.jpg'), name: 'Đen Vâu' },
     { img: require('../assets/img/sonTung.jpg'), name: 'Sơn Tùng MTP' },
     { img: require('../assets/img/cfquanquen.jpg'), name: 'Cafe Quán Quen' },
-    { img: require('../assets/img/vi.jpg'), name: 'Tuyển tập của Sơn Tùng MTP' },
+    { img: require('../assets/img/top20nhacviet.jpg'), name: 'Top 20 Nhạc Việt' },
 ]
 const arrTuyenTap = [
     { img: require('../assets/img/monstart.jpg'), title: 'B Ray, JSON và Đen' },
@@ -215,4 +137,21 @@ const arrTuyenTap = [
     { img: require('../assets/img/pop.jpg'), title: 'Olivia Rodrigo, Ariana Grande, Doja Cat, và nhiều hơn nữa' },
     { img: require('../assets/img/hiphop.jpg'), title: 'Gill, Andree Right Hand, VSOUL, và nhiều hơn nữa' },
     { img: require('../assets/img/kpop.jpg'), title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa' },
+]
+const listMusic = [
+    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),name:'Anh Luôn Như Vậy',view:'2.456.785'},
+    {stt:2,img:require('../assets/img/khongphaigu.jpg'),name:'Không Phải Gu',view:'8.456.785'},
+    {stt:3,img:require('../assets/img/lunglo.jpg'),name:'Lững Lơ',view:'3.456.785'},
+    {stt:4,img:require('../assets/img/caooc20.jpg'),name:'Cao Ốc 20',view:'2.456.785'},
+    {stt:5,img:require('../assets/img/hoanhao.jpg'),name:'Hoàn Hảo',view:'4.456.785'},
+    {stt:6,img:require('../assets/img/thieuthan.jpg'),name:'Thiêu Thân',view:'7.456.785'},
+    {stt:7,img:require('../assets/img/xindungnhacmay.jpg'),name:'Xin Đừng Nhấc Máy',view:'1.456.785'},
+    {stt:8,img:require('../assets/img/anhluonnhuvay.jpg'),name:'Phía sau 1 CODER',view:'5.456.785'},
+    {stt:9,img:require('../assets/img/nhan.jpg'),name:'Mãi Yêu Một Người',view:'3.456.785'},
+    {stt:10,img:require('../assets/img/bigcityboi.jpg'),name:'Big CITY Boi',view:'3.456.785'},
+    {stt:11,img:require('../assets/img/hitmyup.jpg'),name:'Hit My Up',view:'3.456.785'},
+    {stt:12,img:require('../assets/img/lover.jpg'),name:'LOVER',view:'3.456.785'},
+    {stt:13,img:require('../assets/img/9k.jpg'),name:'9K',view:'3.456.785'},
+    {stt:14,img:require('../assets/img/cuoithoi.jpg'),name:'Cưới Thôi',view:'3.456.785'},
+    {stt:15,img:require('../assets/img/bigcityboi.jpg'),name:'Big CITY Boi',view:'3.456.785'}
 ]

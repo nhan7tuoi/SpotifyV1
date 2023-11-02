@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, View } from 'react-native';
-import HomeScreen from "./screens/HomeSc";
+import HomeNavigation from './navigation/HomeNavigation';
 import SearchScreen from "./screens/SearchSc";
 import LibraryScreen from "./screens/LibrarySc";
 import PremiumScreen from "./screens/PremiumSc";
@@ -38,7 +38,7 @@ function BottomTabs() {
     }}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeNavigation}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ focused }) =>
@@ -98,6 +98,8 @@ function StackNavigation() {
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={BottomTabs} />
+      {/*  */}
+      <Stack.Screen name="Album" component={HomeNavigation} />
     </Stack.Navigator>
   )
 }
