@@ -1,38 +1,44 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Entypo } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
+import MiniScrollMusic from "./MiniScrollMusic";
+import MacroScrollMusic from "./MacroScrollMusic";
 
-
-const ThanhNhac = ({ navigation }) => {
+const { width: wWidth, height: wHeight } = Dimensions.get("window");
+const HEIGHT = wHeight;
+const MIN_HEIGHT = wHeight * 0.08;
+const ThanhNhac = () => {
+    const [isMinimize, setIsMinimize] = useState(true);
+    const _onMinimizeClick = () => {
+        setIsMinimize(true);
+    };
+    // const _onSettingsClick = () => {
+    //     setIsMinimize(false);
+    // };
+    const _onDockClick = () => {
+        setIsMinimize(false);
+    };
     return (
-        <View style={{
-            width: '95%', height: 70, backgroundColor: '#320026', borderRadius: 10, position: "absolute",
-            justifyContent: "flex-end",
-            bottom: 82,
-            zIndex: 2,
-            marginLeft: 10
-        }}>
-            <View style={{
-                width: '95%', flexDirection: 'row'
-            }}>
-                <View style={{ width: '17%', justifyContent: 'center' }}>
-                    <Image resizeMode='contain' style={{ width: 50, height: 50, borderRadius: 10, marginLeft: 5 }} source={require('../assets/img/nhan.jpg')} />
-                </View>
-                <View style={{ width: '83%', height: 70, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <View style={{ justifyContent: 'center', height: 70 }}>
-                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Phía sau một Coder</Text>
-                        <Text style={{ color: 'gray', fontSize: 16, fontWeight: '500' }}>Nhân Ka</Text>
-                    </View>
-                    <View style={{ marginRight: 25 }}>
-                        <Entypo name="controller-paus" size={24} color="white" />
-                        {/* <Entypo name="controller-play" size={24} color="white" /> */}
-                    </View>
-                </View>
-            </View>
-            {/* co data thi bo */}
-            <View style={{height:2,width:'95%',backgroundColor:'#fff',alignSelf:'center',borderRadius:20}}></View>
-        </View >
-
+        <View style={isMinimize ? styles.min : styles.max}>
+            {isMinimize ? (
+                <MiniScrollMusic click={_onDockClick} />
+            ) : (
+                <MacroScrollMusic click={_onMinimizeClick} />
+            )}
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    min: {
+        width: '95%', height: 70, backgroundColor: '#320026', borderRadius: 10, position: "absolute",
+        justifyContent: "flex-end",
+        bottom: 82,
+        zIndex: 2,
+        marginLeft: 10,
+        height: MIN_HEIGHT,
+    },
+    max: {
+        height: HEIGHT,
+    }
+});
 export default ThanhNhac;

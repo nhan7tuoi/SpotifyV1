@@ -33,7 +33,7 @@ function AlbumSc({ navigation,route }) {
                                         <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#fff' }}>Đang theo dõi</Text>
                                     </View>
                                 </View>
-                                <View style={{ width: '25%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <View style={{ width: '25%',height:90, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                                     <AntDesign name="retweet" size={24} color="green" />
                                     <AntDesign name="play" size={50} color="green" />
                                 </View>

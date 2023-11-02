@@ -114,6 +114,10 @@ export default function App({ navigation }) {
                         {/* Mới phát gần đây */}
                         <RecentlyPlayedCard arr={recentlyPlayed} txtHeader='Mới phát gần đây' />
                         <ListCard arr={arrTuyenTap} txtHeader='Tuyển tập hàng đầu của bạn' />
+                        <ListCard arr={arrDanhChoBan} txtHeader='Dành cho bạn' />
+                        <ListCard arr={arrDuatrenganDay} txtHeader='Dựa trên gần đây bạn nghe' />
+                        <ListCard arr={arrTamTrang} txtHeader='Tâm trạng' />
+                        <View style={{height:50}}/>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -154,4 +158,32 @@ const listMusic = [
     {stt:13,img:require('../assets/img/9k.jpg'),name:'9K',view:'3.456.785'},
     {stt:14,img:require('../assets/img/cuoithoi.jpg'),name:'Cưới Thôi',view:'3.456.785'},
     {stt:15,img:require('../assets/img/bigcityboi.jpg'),name:'Big CITY Boi',view:'3.456.785'}
+]
+
+const arrDanhChoBan = [
+    {stt:10,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'},
+    {stt:11,img:require('../assets/img/hitmyup.jpg'),title:'Hit My Up',view:'3.456.785'},
+    {stt:12,img:require('../assets/img/lover.jpg'),title:'LOVER',view:'3.456.785'},
+    {stt:13,img:require('../assets/img/9k.jpg'),title:'9K',view:'3.456.785'},
+    {stt:14,img:require('../assets/img/cuoithoi.jpg'),title:'Cưới Thôi',view:'3.456.785'},
+    {stt:15,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'}
+]
+
+const arrDuatrenganDay = [
+    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Anh Luôn Như Vậy',view:'2.456.785'},
+    {stt:2,img:require('../assets/img/khongphaigu.jpg'),title:'Không Phải Gu',view:'8.456.785'},
+    {stt:3,img:require('../assets/img/lunglo.jpg'),title:'Lững Lơ',view:'3.456.785'},
+    {stt:4,img:require('../assets/img/caooc20.jpg'),title:'Cao Ốc 20',view:'2.456.785'},
+    {stt:5,img:require('../assets/img/hoanhao.jpg'),title:'Hoàn Hảo',view:'4.456.785'},
+    {stt:6,img:require('../assets/img/thieuthan.jpg'),title:'Thiêu Thân',view:'7.456.785'},
+    {stt:7,img:require('../assets/img/xindungnhacmay.jpg'),title:'Xin Đừng Nhấc Máy',view:'1.456.785'},
+    {stt:8,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Phía sau 1 CODER',view:'5.456.785'},
+]
+const arrTamTrang = [
+    {stt:14,img:require('../assets/img/cuoithoi.jpg'),title:'Cưới Thôi',view:'3.456.785'},
+    {stt:15,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'},
+    {stt:5,img:require('../assets/img/hoanhao.jpg'),title:'Hoàn Hảo',view:'4.456.785'},
+    {stt:6,img:require('../assets/img/thieuthan.jpg'),title:'Thiêu Thân',view:'7.456.785'},
+    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Anh Luôn Như Vậy',view:'2.456.785'},
+    {stt:2,img:require('../assets/img/khongphaigu.jpg'),title:'Không Phải Gu',view:'8.456.785'},
 ]

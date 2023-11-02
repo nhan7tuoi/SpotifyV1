@@ -9,6 +9,8 @@ import LibraryScreen from "./screens/LibrarySc";
 import PremiumScreen from "./screens/PremiumSc";
 import LoginScreen from "./screens/LoginSc";
 import ThanhNhac from './components/ThanhNhac';
+import miniScrollMusic from './components/MiniScrollMusic';
+import macroScrollMusic from './components/MacroScrollMusic';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -99,7 +101,6 @@ function StackNavigation() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={BottomTabs} />
       {/*  */}
-      <Stack.Screen name="Album" component={HomeNavigation} />
     </Stack.Navigator>
   )
 }
