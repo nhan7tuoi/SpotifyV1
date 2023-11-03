@@ -12,15 +12,15 @@ function ItemMusic({ arr }) {
                         <View>
                             <View style={{ width: '100%', height: 51, flexDirection: 'row', marginTop: 10 }}>
                                 <View style={{ width: '10%', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontStyle: 20, fontWeight: 'bold', color: '#fff' }}>{item.stt}</Text>
+                                    <Text style={{ fontStyle: 20, fontWeight: 'bold', color: '#fff' }}>{item.track.stt}</Text>
                                 </View>
                                 <View style={{ width: '15%' }}>
-                                    <Image resizeMode="contain" style={{ width: 50, height: 50 }} source={item.img} />
+                                    <Image resizeMode="contain" style={{ width: 50, height: 50 }} source={{uri:item.track.album.images[1].url}} />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '75%', padding: 8 }}>
                                     <View>
-                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
-                                        <Text style={{ color: 'gray', fontSize: 12, fontWeight: 'bold' }}>{item.view}</Text>
+                                        <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>{item.track.name}</Text>
+                                        <Text style={{ color: 'gray', fontSize: 12, fontWeight: 'bold' }}>2.983.221</Text>
                                     </View>
                                     <View style={{ justifyContent: 'center', alignItems: 'c' }}>
                                         <MaterialCommunityIcons name="dots-horizontal"

@@ -6,8 +6,8 @@ import ItemMusic from "../components/ItemMusic";
 
 
 function AlbumSc({ navigation,route }) {
-    const { arrMusic,nameItem,imgItem } = route?.params;
-    const [listMusic, setListMusic] = useState(arrMusic);
+    const { alumBRay,nameItem,imgItem } = route?.params;
+    const [listMusic, setListMusic] = useState(alumBRay);
     console.log(listMusic)
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#131624", "#040306"]}>
@@ -41,6 +41,7 @@ function AlbumSc({ navigation,route }) {
                             <View style={{ padding: 10 }}>
                                 <Text style={{ color: '#fff' }}>Phổ biến</Text>
                                 <ItemMusic arr={listMusic}/>
+                                <View style={{height:120}}/>
                             </View>
                         </LinearGradient>
                     </View>

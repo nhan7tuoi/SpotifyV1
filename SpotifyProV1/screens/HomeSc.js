@@ -8,11 +8,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ListCard from '../components/ListCardYourTop';
 import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
+import DataAlbumTop from '../data/TracksBray';
 
 export default function App({ navigation }) {
     const [recentlyPlayed, setRecentlyPlayed] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [arrMusic, setArrMusic] = useState(listMusic);
+    const [alumBRay, setAlbumBRay] = useState(DataAlbumTop);
 
     useEffect(() => {
         // Hàm để lấy access_token từ AsyncStorage khi component được mount
@@ -99,7 +101,7 @@ export default function App({ navigation }) {
                                             <Pressable
                                                 style={{ width: '48%', height: 50, marginTop: 10, marginRight: 15, backgroundColor: '#282828', borderRadius: 10, flexDirection: 'row' }}
                                                 onPress={() => {
-                                                    navigation.navigate('Album', {arrMusic,nameItem:item.name, imgItem: item.img})
+                                                    navigation.navigate('Album', {alumBRay,nameItem:item.name, imgItem: item.img})
                                                 }}>
                                                 <Image resizeMode='contain' source={item.img} style={{ width: '30%', height: '100%', borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} />
                                                 <View style={{ width: '60%', height: '100%', justifyContent: 'center', marginLeft: 10 }}>
