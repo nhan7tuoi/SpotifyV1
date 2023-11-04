@@ -1,18 +1,18 @@
-import  {useContext} from 'react';
+import { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, View } from 'react-native';
 import HomeNavigation from './navigation/HomeNavigation';
-import SearchScreen from "./screens/SearchSc";
-import LibraryScreen from "./screens/LibrarySc";
 import PremiumScreen from "./screens/PremiumSc";
 import LoginScreen from "./screens/LoginSc";
 import ThanhNhac from './components/ThanhNhac';
 import miniScrollMusic from './components/MiniScrollMusic';
 import macroScrollMusic from './components/MacroScrollMusic';
-import { PlayerContext,Player } from './PlayerContext';
+import { PlayerContext, Player } from './PlayerContext';
 import AlbumSc from './screens/AlbumSc';
+import SearchNavigation from './navigation/SearchNavigation';
+import LibraryNavigation from './navigation/LibraryNavigation';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -60,7 +60,7 @@ function BottomTabs() {
         />
         <Tab.Screen
           name="Search"
-          component={SearchScreen}
+          component={SearchNavigation}
           options={{
             tabBarLabel: "Search",
             tabBarIcon: ({ focused }) =>
@@ -73,7 +73,7 @@ function BottomTabs() {
         />
         <Tab.Screen
           name="Library"
-          component={LibraryScreen}
+          component={LibraryNavigation}
           options={{
             tabBarLabel: "Library",
             tabBarIcon: ({ focused }) =>

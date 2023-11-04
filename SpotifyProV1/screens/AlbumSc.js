@@ -20,22 +20,21 @@ function AlbumSc({ navigation, route }) {
     const { isPlaying, setIsPlaying } = useContext(Player);
     const { currentSound, setCurrentSound } = useContext(Player);
     const { listTrack, setListTrack } = useContext(Player);
+    const {value} = useContext(Player);
 
+    //
     setListTrack(listMusic);
-
-
-    // console.log(listMusic)
     const PlayTrack = async () => {
         if (listMusic.length > 0) {
             setCurrentTrack(listMusic[0]);
         }
         await Play(listMusic[0]);
     }
+    //
     const Play = async (nextTrack) => {
-        // console.log(nextTrack);
         const preview_url = nextTrack.track.preview_url;
         try {
-            if(currentSound){
+            if (currentSound) {
                 await currentSound.stopAsync();
             }
             await Audio.setAudioModeAsync({
@@ -61,6 +60,7 @@ function AlbumSc({ navigation, route }) {
             console.log(error);
         }
     };
+    //
     const onPlaybackStatusUpdate = async (status) => {
         if (status.isLoaded && status.isPlaying) {
             const progress = status.positionMillis / status.durationMillis;
@@ -68,7 +68,28 @@ function AlbumSc({ navigation, route }) {
             setCurrentTime(status.positionMillis);
             setDuration(status.durationMillis);
         }
+        if (status.didJustFinish === true) {
+            setCurrentSound(null);
+            handleNext();
+        }
     }
+    //
+    const handleNext = async () => {
+        if (currentSound) {
+            await currentSound.stopAsync();
+            setCurrentSound(null);
+        }
+        value.current += 1;
+        if (value.current < listTrack.length) {
+            const nextTrack = listTrack[value.current];
+            setCurrentTrack(nextTrack);
+
+            await Play(nextTrack);
+        } else {
+            console.log('Het bai hat');
+        }
+    }
+    //
     const handlePlayPause = async () => {
         if (currentSound) {
             if (isPlaying) {

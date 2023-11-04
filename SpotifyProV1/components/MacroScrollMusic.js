@@ -174,7 +174,6 @@ function MacroScrollMusic({ click }) {
                             </Pressable>
                             <Pressable onPress={() => {
                                 handlePlayPause();
-                                console.log(isPlaying)
                             }}>
                                 {isPlaying ? (
                                     <AntDesign name="pausecircle" size={60} color="white" />

@@ -62,8 +62,6 @@ export default function App({ navigation }) {
         }
     };
     const message = greetingMessage();
-    console.log(message)
-    console.log('recentlyPlayed', recentlyPlayed)
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView>
