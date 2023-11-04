@@ -6,7 +6,7 @@ export default function App() {
     return (
         <LinearGradient style={{flex:1}} colors={["#040306","#131624"]}>
             <SafeAreaView>
-                <Text>Lib</Text>
+                <Text style={{color:'#fff'}}>Lib</Text>
             </SafeAreaView>
         </LinearGradient>
     );
