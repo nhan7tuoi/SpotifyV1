@@ -170,3 +170,4 @@ const LibrarySc = ({navigation}) => {
 export default LibrarySc;
 
 const styles = StyleSheet.create({});
+

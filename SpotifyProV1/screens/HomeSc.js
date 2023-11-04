@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { SafeAreaView, Text, View, FlatList, Pressable, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Player } from '../PlayerContext';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -11,13 +12,13 @@ import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
 import DataAlbumTop from '../data/TracksBray';
 
 export default function App({ navigation }) {
+    // const { currentTrack, setCurrentTrack } = useContext(Player);
     const [recentlyPlayed, setRecentlyPlayed] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [arrMusic, setArrMusic] = useState(listMusic);
-    const [alumBRay, setAlbumBRay] = useState(DataAlbumTop);
+    const [alBumRay, setAlbumBRay] = useState(DataAlbumTop);
 
     useEffect(() => {
-        // Hàm để lấy access_token từ AsyncStorage khi component được mount
         const getAccessTokenFromStorage = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
@@ -53,15 +54,14 @@ export default function App({ navigation }) {
     const greetingMessage = () => {
         const currentTime = new Date().getHours();
         if (currentTime < 12) {
-            return "Good Morning";
+            return "Chào buổi sáng";
         } else if (currentTime < 16) {
-            return "Good Afternoon";
+            return "Chào buổi chiều";
         } else {
-            return "Good Evening";
+            return "Chào buổi tối";
         }
     };
     const message = greetingMessage();
-    console.log('recentlyPlayed', recentlyPlayed)
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView>
@@ -101,7 +101,7 @@ export default function App({ navigation }) {
                                             <Pressable
                                                 style={{ width: '48%', height: 50, marginTop: 10, marginRight: 15, backgroundColor: '#282828', borderRadius: 10, flexDirection: 'row' }}
                                                 onPress={() => {
-                                                    navigation.navigate('Album', {alumBRay,nameItem:item.name, imgItem: item.img})
+                                                    navigation.navigate('Album', { alBumRay, nameItem: item.name, imgItem: item.img })
                                                 }}>
                                                 <Image resizeMode='contain' source={item.img} style={{ width: '30%', height: '100%', borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} />
                                                 <View style={{ width: '60%', height: '100%', justifyContent: 'center', marginLeft: 10 }}>
@@ -119,9 +119,10 @@ export default function App({ navigation }) {
                         <ListCard arr={arrDanhChoBan} txtHeader='Dành cho bạn' />
                         <ListCard arr={arrDuatrenganDay} txtHeader='Dựa trên gần đây bạn nghe' />
                         <ListCard arr={arrTamTrang} txtHeader='Tâm trạng' />
-                        <View style={{height:50}}/>
+                        <View style={{ height: 50 }} />
                     </View>
                 </ScrollView>
+
             </SafeAreaView>
         </LinearGradient>
     );
@@ -145,47 +146,47 @@ const arrTuyenTap = [
     { img: require('../assets/img/kpop.jpg'), title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa' },
 ]
 const listMusic = [
-    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),name:'Anh Luôn Như Vậy',view:'2.456.785'},
-    {stt:2,img:require('../assets/img/khongphaigu.jpg'),name:'Không Phải Gu',view:'8.456.785'},
-    {stt:3,img:require('../assets/img/lunglo.jpg'),name:'Lững Lơ',view:'3.456.785'},
-    {stt:4,img:require('../assets/img/caooc20.jpg'),name:'Cao Ốc 20',view:'2.456.785'},
-    {stt:5,img:require('../assets/img/hoanhao.jpg'),name:'Hoàn Hảo',view:'4.456.785'},
-    {stt:6,img:require('../assets/img/thieuthan.jpg'),name:'Thiêu Thân',view:'7.456.785'},
-    {stt:7,img:require('../assets/img/xindungnhacmay.jpg'),name:'Xin Đừng Nhấc Máy',view:'1.456.785'},
-    {stt:8,img:require('../assets/img/anhluonnhuvay.jpg'),name:'Phía sau 1 CODER',view:'5.456.785'},
-    {stt:9,img:require('../assets/img/nhan.jpg'),name:'Mãi Yêu Một Người',view:'3.456.785'},
-    {stt:10,img:require('../assets/img/bigcityboi.jpg'),name:'Big CITY Boi',view:'3.456.785'},
-    {stt:11,img:require('../assets/img/hitmyup.jpg'),name:'Hit My Up',view:'3.456.785'},
-    {stt:12,img:require('../assets/img/lover.jpg'),name:'LOVER',view:'3.456.785'},
-    {stt:13,img:require('../assets/img/9k.jpg'),name:'9K',view:'3.456.785'},
-    {stt:14,img:require('../assets/img/cuoithoi.jpg'),name:'Cưới Thôi',view:'3.456.785'},
-    {stt:15,img:require('../assets/img/bigcityboi.jpg'),name:'Big CITY Boi',view:'3.456.785'}
+    { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), name: 'Anh Luôn Như Vậy', view: '2.456.785' },
+    { stt: 2, img: require('../assets/img/khongphaigu.jpg'), name: 'Không Phải Gu', view: '8.456.785' },
+    { stt: 3, img: require('../assets/img/lunglo.jpg'), name: 'Lững Lơ', view: '3.456.785' },
+    { stt: 4, img: require('../assets/img/caooc20.jpg'), name: 'Cao Ốc 20', view: '2.456.785' },
+    { stt: 5, img: require('../assets/img/hoanhao.jpg'), name: 'Hoàn Hảo', view: '4.456.785' },
+    { stt: 6, img: require('../assets/img/thieuthan.jpg'), name: 'Thiêu Thân', view: '7.456.785' },
+    { stt: 7, img: require('../assets/img/xindungnhacmay.jpg'), name: 'Xin Đừng Nhấc Máy', view: '1.456.785' },
+    { stt: 8, img: require('../assets/img/anhluonnhuvay.jpg'), name: 'Phía sau 1 CODER', view: '5.456.785' },
+    { stt: 9, img: require('../assets/img/nhan.jpg'), name: 'Mãi Yêu Một Người', view: '3.456.785' },
+    { stt: 10, img: require('../assets/img/bigcityboi.jpg'), name: 'Big CITY Boi', view: '3.456.785' },
+    { stt: 11, img: require('../assets/img/hitmyup.jpg'), name: 'Hit My Up', view: '3.456.785' },
+    { stt: 12, img: require('../assets/img/lover.jpg'), name: 'LOVER', view: '3.456.785' },
+    { stt: 13, img: require('../assets/img/9k.jpg'), name: '9K', view: '3.456.785' },
+    { stt: 14, img: require('../assets/img/cuoithoi.jpg'), name: 'Cưới Thôi', view: '3.456.785' },
+    { stt: 15, img: require('../assets/img/bigcityboi.jpg'), name: 'Big CITY Boi', view: '3.456.785' }
 ]
 
 const arrDanhChoBan = [
-    {stt:10,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'},
-    {stt:11,img:require('../assets/img/hitmyup.jpg'),title:'Hit My Up',view:'3.456.785'},
-    {stt:12,img:require('../assets/img/lover.jpg'),title:'LOVER',view:'3.456.785'},
-    {stt:13,img:require('../assets/img/9k.jpg'),title:'9K',view:'3.456.785'},
-    {stt:14,img:require('../assets/img/cuoithoi.jpg'),title:'Cưới Thôi',view:'3.456.785'},
-    {stt:15,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'}
+    { stt: 10, img: require('../assets/img/bigcityboi.jpg'), title: 'Big CITY Boi', view: '3.456.785' },
+    { stt: 11, img: require('../assets/img/hitmyup.jpg'), title: 'Hit My Up', view: '3.456.785' },
+    { stt: 12, img: require('../assets/img/lover.jpg'), title: 'LOVER', view: '3.456.785' },
+    { stt: 13, img: require('../assets/img/9k.jpg'), title: '9K', view: '3.456.785' },
+    { stt: 14, img: require('../assets/img/cuoithoi.jpg'), title: 'Cưới Thôi', view: '3.456.785' },
+    { stt: 15, img: require('../assets/img/bigcityboi.jpg'), title: 'Big CITY Boi', view: '3.456.785' }
 ]
 
 const arrDuatrenganDay = [
-    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Anh Luôn Như Vậy',view:'2.456.785'},
-    {stt:2,img:require('../assets/img/khongphaigu.jpg'),title:'Không Phải Gu',view:'8.456.785'},
-    {stt:3,img:require('../assets/img/lunglo.jpg'),title:'Lững Lơ',view:'3.456.785'},
-    {stt:4,img:require('../assets/img/caooc20.jpg'),title:'Cao Ốc 20',view:'2.456.785'},
-    {stt:5,img:require('../assets/img/hoanhao.jpg'),title:'Hoàn Hảo',view:'4.456.785'},
-    {stt:6,img:require('../assets/img/thieuthan.jpg'),title:'Thiêu Thân',view:'7.456.785'},
-    {stt:7,img:require('../assets/img/xindungnhacmay.jpg'),title:'Xin Đừng Nhấc Máy',view:'1.456.785'},
-    {stt:8,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Phía sau 1 CODER',view:'5.456.785'},
+    { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Anh Luôn Như Vậy', view: '2.456.785' },
+    { stt: 2, img: require('../assets/img/khongphaigu.jpg'), title: 'Không Phải Gu', view: '8.456.785' },
+    { stt: 3, img: require('../assets/img/lunglo.jpg'), title: 'Lững Lơ', view: '3.456.785' },
+    { stt: 4, img: require('../assets/img/caooc20.jpg'), title: 'Cao Ốc 20', view: '2.456.785' },
+    { stt: 5, img: require('../assets/img/hoanhao.jpg'), title: 'Hoàn Hảo', view: '4.456.785' },
+    { stt: 6, img: require('../assets/img/thieuthan.jpg'), title: 'Thiêu Thân', view: '7.456.785' },
+    { stt: 7, img: require('../assets/img/xindungnhacmay.jpg'), title: 'Xin Đừng Nhấc Máy', view: '1.456.785' },
+    { stt: 8, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Phía sau 1 CODER', view: '5.456.785' },
 ]
 const arrTamTrang = [
-    {stt:14,img:require('../assets/img/cuoithoi.jpg'),title:'Cưới Thôi',view:'3.456.785'},
-    {stt:15,img:require('../assets/img/bigcityboi.jpg'),title:'Big CITY Boi',view:'3.456.785'},
-    {stt:5,img:require('../assets/img/hoanhao.jpg'),title:'Hoàn Hảo',view:'4.456.785'},
-    {stt:6,img:require('../assets/img/thieuthan.jpg'),title:'Thiêu Thân',view:'7.456.785'},
-    {stt:1,img:require('../assets/img/anhluonnhuvay.jpg'),title:'Anh Luôn Như Vậy',view:'2.456.785'},
-    {stt:2,img:require('../assets/img/khongphaigu.jpg'),title:'Không Phải Gu',view:'8.456.785'},
+    { stt: 14, img: require('../assets/img/cuoithoi.jpg'), title: 'Cưới Thôi', view: '3.456.785' },
+    { stt: 15, img: require('../assets/img/bigcityboi.jpg'), title: 'Big CITY Boi', view: '3.456.785' },
+    { stt: 5, img: require('../assets/img/hoanhao.jpg'), title: 'Hoàn Hảo', view: '4.456.785' },
+    { stt: 6, img: require('../assets/img/thieuthan.jpg'), title: 'Thiêu Thân', view: '7.456.785' },
+    { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Anh Luôn Như Vậy', view: '2.456.785' },
+    { stt: 2, img: require('../assets/img/khongphaigu.jpg'), title: 'Không Phải Gu', view: '8.456.785' },
 ]
