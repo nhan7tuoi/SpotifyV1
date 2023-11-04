@@ -4,13 +4,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, View } from 'react-native';
 import HomeNavigation from './navigation/HomeNavigation';
-import SearchScreen from "./screens/SearchSc";
 import LibraryScreen from "./screens/LibrarySc";
 import PremiumScreen from "./screens/PremiumSc";
 import LoginScreen from "./screens/LoginSc";
 import ThanhNhac from './components/ThanhNhac';
 import miniScrollMusic from './components/MiniScrollMusic';
 import macroScrollMusic from './components/MacroScrollMusic';
+import SearchNavigation from './navigation/SearchNavigation';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,7 +53,7 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={SearchNavigation}
         options={{
           tabBarLabel: "Search",
           tabBarIcon: ({ focused }) =>
