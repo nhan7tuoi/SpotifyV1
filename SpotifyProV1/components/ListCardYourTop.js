@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, Pressable } from 'react-native';
 
-function ListCard({ txtHeader, arr }) {
+
+function ListCard({ txtHeader, arr,navigation}) {
     return (
         <View style={{ width: '100%', height: 230, marginBottom: 20 }}>
             <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>{txtHeader}</Text>
@@ -13,12 +14,15 @@ function ListCard({ txtHeader, arr }) {
                         horizontal={true}
                         renderItem={({ item }) => {
                             return (
-                                <View style={{ marginRight: 20 }}>
+                                <Pressable onPress={()=>{
+                                    navigation.navigate('Album',{id:item.id,img:item.img})
+                                }}
+                                style={{ marginRight: 20 }}>
                                     <View style={{ width: 150, height: 150, marginTop: 10 }}>
                                         <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={item.img} />
                                     </View>
                                     <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.title}</Text>
-                                </View>
+                                </Pressable>
                             )
                         }}
                     />

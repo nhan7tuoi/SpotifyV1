@@ -1,17 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Text, SafeAreaView, ScrollView, Image, Pressable, FlatList } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import ItemMusic from "../components/ItemMusic";
 import { Player } from "../PlayerContext";
 import { Audio } from 'expo-av';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+
 
 
 
 
 function AlbumSc({ navigation, route }) {
-    const { alBumRay, nameItem, imgItem } = route?.params;
-    const [listMusic, setListMusic] = useState(alBumRay);
+    const { id,name,img } = route?.params;
+    const [idArtists, setIdArtists] = useState(id);
+    const [listMusic, setListMusic] = useState([]);
+    const [accessToken, setAccessToken] = useState(null);
+
     const [progress, setProgress] = useState(null);
     const { currentTrack, setCurrentTrack } = useContext(Player);
     const { currentProgress, setCurrentProgress } = useContext(Player);
@@ -20,7 +26,45 @@ function AlbumSc({ navigation, route }) {
     const { isPlaying, setIsPlaying } = useContext(Player);
     const { currentSound, setCurrentSound } = useContext(Player);
     const { listTrack, setListTrack } = useContext(Player);
-    const {value} = useContext(Player);
+    const { value } = useContext(Player);
+
+
+    useEffect(() => {
+        const getAccessTokenFromStorage = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                if (token) {
+                    console.log('Token Home', token)
+                    setAccessToken(token);
+                }
+            } catch (error) {
+                console.error('Error getting access token from AsyncStorage:', error);
+            }
+        }
+        getAccessTokenFromStorage();
+    }, []);
+
+    const getListTracksArtists = async (accessToken) => {
+        try {
+            const response = await axios({
+                method: "GET",
+                url: `https://api.spotify.com/v1/playlists/${idArtists}/tracks?limit=20`,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            const listTracks = response.data.items;
+            setListMusic(listTracks);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+    useEffect(() => {
+        getListTracksArtists(accessToken);
+    }, [accessToken]);
+
+    //
+    console.log('List Music', listMusic);
 
     //
     setListTrack(listMusic);
@@ -110,12 +154,13 @@ function AlbumSc({ navigation, route }) {
                             <View style={{ position: 'absolute', zIndex: 2, top: 20, left: 20 }}>
                                 <Pressable onPress={() => {
                                     navigation.goBack();
-                                }}>
+                                }}
+                                style={{width:30,height:30,backgroundColor:'gray',borderRadius:15,justifyContent:'center',alignItems:'center'}}>
                                     <AntDesign name="left" size={24} color="white" />
                                 </Pressable>
                             </View>
-                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={imgItem} />
-                            <Text numberOfLines={1} style={{ width: 350, color: '#fff', fontSize: 50, fontWeight: 'bold', position: 'absolute', zIndex: 2, bottom: 0, left: 20 }}>{nameItem}</Text>
+                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={img} />
+                            <Text numberOfLines={1} style={{ width: 350, color: '#fff', fontSize: 50, fontWeight: 'bold', position: 'absolute', zIndex: 2, bottom: 0, left: 20 }}>{name}</Text>
                         </View>
                         <LinearGradient colors={["#131624", "#040306"]}>
                             <View style={{ width: '100%', height: 90, padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>

@@ -4,7 +4,7 @@ import { View, Text, Image, FlatList, Pressable } from 'react-native';
 import { Player } from "../PlayerContext";
 import { Audio } from 'expo-av';
 
-function RecentlyPlayedCard({ txtHeader, arr }) {
+function ItemCard({ txtHeader, arr }) {
     const { currentTrack, setCurrentTrack } = useContext(Player);
     const { currentSound, setCurrentSound } = useContext(Player);
     const { currentProgress, setCurrentProgress } = useContext(Player);
@@ -62,13 +62,13 @@ function RecentlyPlayedCard({ txtHeader, arr }) {
                             return (
                                 <Pressable onPress={() => {
                                     setCurrentTrack(item);
-                                    Play(item.track.preview_url);
+                                    Play(item?.preview_url);
                                 }}
                                     style={{ marginRight: 20 }}>
                                     <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{ uri: item.track.album.images[0].url }} />
+                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{ uri: item?.album?.images[0].url }} />
                                     </View>
-                                    <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.track.name}</Text>
+                                    <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item?.name}</Text>
                                 </Pressable>
                             )
                         }}
@@ -78,4 +78,4 @@ function RecentlyPlayedCard({ txtHeader, arr }) {
         </View>
     )
 }
-export default RecentlyPlayedCard;
+export default ItemCard;
