@@ -2,13 +2,14 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
 import LibrarySc from "../screens/LibrarySc";
+import ArtistsSc from "../screens/ArtistsSc";
 
 const stack = createNativeStackNavigator();
 const LibraryNavigation = () => {
   return (
-    <stack.Navigator>
+    <stack.Navigator initialRouteName="LibrarySc">
       <stack.Screen
-        name="LibrarySC"
+        name="LibrarySc"
         component={LibrarySc}
         options={{
           headerTitle: "Thư viện",
@@ -40,6 +41,17 @@ const LibraryNavigation = () => {
             </View>
           ),
         }}
+      />
+      <stack.Screen name="ArtistsSc" component={ArtistsSc}
+        options={({navigation})=>({
+          headerTitle:"",
+          headerStyle:{backgroundColor:"black"},
+          headerLeft:()=>(
+            <Pressable onPress={()=>navigation.goBack()} style={{marginLeft:20}}>
+              <FontAwesome name="chevron-left" size={24} color={"#fff"}/>
+            </Pressable>
+          )
+        })}
       />
     </stack.Navigator>
   );
