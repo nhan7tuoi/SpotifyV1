@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View, FlatList, Pressable, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Player } from '../PlayerContext';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -11,7 +10,6 @@ import ListCard from '../components/ListCardYourTop';
 import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
 import DataAlbumTop from '../data/TracksBray';
 import ItemCard from '../components/ItemCard';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 
 
@@ -20,7 +18,6 @@ const idTracks = '5TzRsrN1CYRPlUyBagEB6b%2C5HEHl6EHbRulVVOE2FREB0%2C1vs3qUaKHWiY
 const idTamTrang = '0qxqn218fQaJMuRt5l4nmK%2C5DYg0OGm3Vg89wIo3COr52%2C6CM3MwvyVywmrIaU0TdV2q%2C1P1dtPn7zaZzFahKYJnYfH%2C4P7y3XkZ4pnfuAn1GM16jS%2C0hKmcs5NMfmQuyiuIf7XKn'
 const idDuaTrenGanDay = '4uZs35Zm7ivjQCM7v5nQj8%2C0ReId5SRMspb6ISw0rBsBN%2C0hiQvlWSSTr7n1kc1X2Lus%2C4W2poMwGzKQHtpNCthoGhC%2C4Jp3HONKA2ztto0nDs8Qgt%2C3LlEZ4J1ORcgP1WmTF9pIX'
 export default function App({ navigation }) {
-    // const { currentTrack, setCurrentTrack } = useContext(Player);
     const [recentlyPlayed, setRecentlyPlayed] = useState([]);
     const [listTracksYour, setListTrackYour] = useState([]);
     const [listTracksTamTrang, setListTrackTamTrang] = useState([]);
