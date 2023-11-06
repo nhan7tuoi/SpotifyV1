@@ -13,10 +13,14 @@ import axios from "axios";
 
 
 function AlbumSc({ navigation, route }) {
-    const { id,name,img } = route?.params;
-    const [idArtists, setIdArtists] = useState(id);
+    const { item } = route?.params;
+    const [idArtists, setIdArtists] = useState(item.id);
     const [listMusic, setListMusic] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
+    const [follow, setFollow] = useState(item.follow);
+    const [arrArtists, setArrArtists] = useState([]);
+
+    console.log(follow)
 
     const [progress, setProgress] = useState(null);
     const { currentTrack, setCurrentTrack } = useContext(Player);
@@ -28,6 +32,15 @@ function AlbumSc({ navigation, route }) {
     const { listTrack, setListTrack } = useContext(Player);
     const { value } = useContext(Player);
 
+
+
+    useEffect(() => {
+        fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1")
+            .then((response) => response.json())
+            .then((json) => {
+                setArrArtists(json.artistID);
+            })
+    }, [])
 
     useEffect(() => {
         const getAccessTokenFromStorage = async () => {
@@ -144,7 +157,7 @@ function AlbumSc({ navigation, route }) {
             setIsPlaying(!isPlaying);
         }
     }
-
+    console.log(item)
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#131624", "#040306"]}>
             <SafeAreaView>
@@ -155,20 +168,60 @@ function AlbumSc({ navigation, route }) {
                                 <Pressable onPress={() => {
                                     navigation.goBack();
                                 }}
-                                style={{width:30,height:30,backgroundColor:'gray',borderRadius:15,justifyContent:'center',alignItems:'center'}}>
+                                    style={{ width: 30, height: 30, backgroundColor: 'gray', borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
                                     <AntDesign name="left" size={24} color="white" />
                                 </Pressable>
                             </View>
-                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={img} />
-                            <Text numberOfLines={1} style={{ width: 350, color: '#fff', fontSize: 50, fontWeight: 'bold', position: 'absolute', zIndex: 2, bottom: 0, left: 20 }}>{name}</Text>
+                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={item.img} />
+                            <Text numberOfLines={1} style={{ width: 350, color: '#fff', fontSize: 50, fontWeight: 'bold', position: 'absolute', zIndex: 2, bottom: 0, left: 20 }}>{item.name}</Text>
                         </View>
                         <LinearGradient colors={["#131624", "#040306"]}>
                             <View style={{ width: '100%', height: 90, padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ width: '75%' }}>
                                     <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'gray' }}>999,9 N người nghe hàng tháng</Text>
-                                    <View style={{ width: 120, height: 40, borderRadius: 20, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
-                                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#fff' }}>Đang theo dõi</Text>
-                                    </View>
+                                    {follow ? (
+                                        <Pressable
+                                            style={{ width: 120, height: 40, borderRadius: 20, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+                                            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#fff' }}>Đang theo dõi</Text>
+                                        </Pressable>
+                                    ) : (
+                                        <Pressable
+                                            onPress={() => {
+                                                fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1", {
+                                                    method: "PUT",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        artistID: [
+                                                            ...arrArtists, idArtists
+
+                                                        ],
+                                                    }),
+                                                }).then(response => {
+                                                    if (response.ok) {
+                                                        fetch("https://6545e7e8fe036a2fa954f228.mockapi.io/artists"+idArtists, {
+                                                            method: "PUT",
+                                                            headers: {
+                                                                "Content-Type": "application/json",
+                                                            },
+                                                            body: JSON.stringify({
+                                                                follow: (!follow),
+                                                            }),
+                                                        }).then(response => {
+                                                            if (response.ok) {
+                                                                console.log('ok');
+                                                                setFollow(!follow);
+                                                            }
+                                                        })
+                                                    }
+                                                })
+
+                                            }}
+                                            style={{ width: 120, height: 40, borderRadius: 20, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+                                            <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#fff' }}>Theo dõi</Text>
+                                        </Pressable>
+                                    )}
                                 </View>
                                 <View style={{ width: '25%', height: 90, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                                     <AntDesign name="retweet" size={24} color="green" />
@@ -201,8 +254,8 @@ function AlbumSc({ navigation, route }) {
                         </LinearGradient>
                     </View>
                 </ScrollView>
-            </SafeAreaView>
-        </LinearGradient>
+            </SafeAreaView >
+        </LinearGradient >
     );
 }
 export default AlbumSc;

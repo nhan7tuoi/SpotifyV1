@@ -23,8 +23,7 @@ export default function App({ navigation }) {
     const [listTracksTamTrang, setListTrackTamTrang] = useState([]);
     const [listTracksDuaTrenGanDay, setListTrackDuaTrenGanDay] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
-    const [arrMusic, setArrMusic] = useState(listMusic);
-    const [alBumRay, setAlbumBRay] = useState(DataAlbumTop);
+    const [arrMusic, setArrMusic] = useState([]);
 
     useEffect(() => {
         const getAccessTokenFromStorage = async () => {
@@ -56,7 +55,7 @@ export default function App({ navigation }) {
         }
     };
     const getTracksYour = async (accessToken) => {
-        try{
+        try {
             const response = await axios({
                 method: "GET",
                 url: `https://api.spotify.com/v1/tracks?ids=${idTracks}`,
@@ -66,12 +65,12 @@ export default function App({ navigation }) {
             });
             const tracksYour = response.data.tracks;
             setListTrackYour(tracksYour);
-        }catch(err){
+        } catch (err) {
             console.log(err.message);
         }
     };
     const getTracksTamTrang = async (accessToken) => {
-        try{
+        try {
             const response = await axios({
                 method: "GET",
                 url: `https://api.spotify.com/v1/tracks?ids=${idTamTrang}`,
@@ -81,12 +80,12 @@ export default function App({ navigation }) {
             });
             const tracksTamTrang = response.data.tracks;
             setListTrackTamTrang(tracksTamTrang);
-        }catch(err){
+        } catch (err) {
             console.log(err.message);
         }
     };
     const getTracksDuaGanDay = async (accessToken) => {
-        try{
+        try {
             const response = await axios({
                 method: "GET",
                 url: `https://api.spotify.com/v1/tracks?ids=${idDuaTrenGanDay}`,
@@ -96,7 +95,7 @@ export default function App({ navigation }) {
             });
             const tracksGanDay = response.data.tracks;
             setListTrackDuaTrenGanDay(tracksGanDay);
-        }catch(err){
+        } catch (err) {
             console.log(err.message);
         }
     };
@@ -122,6 +121,17 @@ export default function App({ navigation }) {
         }
     };
     const message = greetingMessage();
+
+    useEffect(() => {
+        fetch("https://6545e7e8fe036a2fa954f228.mockapi.io/artists")
+            .then((response) => response.json())
+            .then((json) => {
+                setArrMusic(json);
+            })
+    }, []);
+
+
+
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView>
@@ -154,17 +164,17 @@ export default function App({ navigation }) {
                             {/* <Text style={{ color: '#fff', fontSize: 20, fontWeight: 'bold' }}>Đang phát gần đây</Text> */}
                             <View>
                                 <FlatList
-                                    data={arrTop}
+                                    data={arrMusic}
                                     numColumns={2}
                                     renderItem={({ item }) => {
                                         return (
                                             <Pressable
                                                 style={{ width: '48%', height: 50, marginTop: 10, marginRight: 15, backgroundColor: '#282828', borderRadius: 10, flexDirection: 'row' }}
                                                 onPress={() => {
-                                                    navigation.navigate('Album',{id:item.id,name:item.name,img:item.img})
+                                                    navigation.navigate('Album', { item })
                                                 }}>
-                                                <Image resizeMode='contain' source={item.img}
-                                                 style={{ width: 50, height: 50, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} />
+                                                <Image resizeMode='contain' source={{ uri: item.img }}
+                                                    style={{ width: 50, height: 50, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} />
                                                 <View style={{ width: '60%', height: '100%', justifyContent: 'center', marginLeft: 10 }}>
                                                     <Text numberOfLines={1} style={{ color: '#fff', fontSize: 14, fontWeight: 700 }}>{item.name}</Text>
                                                 </View>
@@ -189,21 +199,21 @@ export default function App({ navigation }) {
 }
 
 const arrTop = [
-    { img: require('../assets/img/bray.jpg'), name: 'Bray',id:'37i9dQZF1EIUqm0nwTuH1o' },
-    { img: require('../assets/img/binz.jpg'), name: 'BinZ',id:'37i9dQZF1DX35hqM16st8Y' },
-    { img: require('../assets/img/den.jpg'), name: 'Đen Vâu',id:'10adSVUmsx40rX9N7G0VbJ' },
-    { img: require('../assets/img/sonTung.jpg'), name: 'Sơn Tùng MTP',id:'37i9dQZF1DWYPc4oQ0ynkq' },
-    { img: require('../assets/img/cfquanquen.jpg'), name: 'Cafe Quán Quen',id:'37i9dQZF1DX1e2VSJFudND' },
-    { img: require('../assets/img/top20nhacviet.jpg'), name: 'Top 20 Nhạc Việt',id:'37i9dQZF1DX0DaTVvjIMEq' },
+    { img: require('../assets/img/bray.jpg'), name: 'Bray', id: '37i9dQZF1EIUqm0nwTuH1o', follow: false },
+    { img: require('../assets/img/binz.jpg'), name: 'BinZ', id: '37i9dQZF1DX35hqM16st8Y' },
+    { img: require('../assets/img/den.jpg'), name: 'Đen Vâu', id: '10adSVUmsx40rX9N7G0VbJ' },
+    { img: require('../assets/img/sonTung.jpg'), name: 'Sơn Tùng MTP', id: '37i9dQZF1DWYPc4oQ0ynkq' },
+    { img: require('../assets/img/cfquanquen.jpg'), name: 'Cafe Quán Quen', id: '37i9dQZF1DX1e2VSJFudND' },
+    { img: require('../assets/img/top20nhacviet.jpg'), name: 'Top 20 Nhạc Việt', id: '37i9dQZF1DX0DaTVvjIMEq' },
 ]
 const arrTuyenTap = [
-    { img: require('../assets/img/monstart.jpg'), title: 'B Ray, JSON và Đen',id:'37i9dQZF1EIY9s3GqwEtHW',name:'Truyển tập của MONSTART' },
-    { img: require('../assets/img/greyd.jpg'), title: 'JSON, B Ray và Đen' ,id:'37i9dQZF1E4yTlMujiATpB',name:'Truyển tập của GREY D'},
-    { img: require('../assets/img/buon.jpg'), title: 'The Waltes, Conan Gray, Jeremy Zucker và nhiều hơn nữa',id:'37i9dQZF1EVKuMoAJjoTIw',name:'Truyển tập của Buồn' },
-    { img: require('../assets/img/vuive.jpg'), title: 'Harry Styles, Ed Sheeran, Sabrina Carpenter,  và nhiều hơn nữa' ,id:'37i9dQZF1EVJSvZp5AOML2',name:'Truyển tập của Vui Vẻ'},
-    { img: require('../assets/img/pop.jpg'), title: 'Olivia Rodrigo, Ariana Grande, Doja Cat, và nhiều hơn nữa',id:'37i9dQZF1EQncLwOalG3K7',name:'Truyển tập của Pop' },
-    { img: require('../assets/img/hiphop.jpg'), title: 'Gill, Andree Right Hand, VSOUL, và nhiều hơn nữa',id:'37i9dQZF1EQnqst5TRi17F',name:'Truyển tập của Hip-Hop' },
-    { img: require('../assets/img/kpop.jpg'), title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa',id:'37i9dQZF1EQpesGsmIyqcW',name:'Truyển tập của K-Pop' },
+    { img: require('../assets/img/monstart.jpg'), title: 'B Ray, JSON và Đen', id: '37i9dQZF1EIY9s3GqwEtHW', name: 'Truyển tập của MONSTART' },
+    { img: require('../assets/img/greyd.jpg'), title: 'JSON, B Ray và Đen', id: '37i9dQZF1E4yTlMujiATpB', name: 'Truyển tập của GREY D' },
+    { img: require('../assets/img/buon.jpg'), title: 'The Waltes, Conan Gray, Jeremy Zucker và nhiều hơn nữa', id: '37i9dQZF1EVKuMoAJjoTIw', name: 'Truyển tập của Buồn' },
+    { img: require('../assets/img/vuive.jpg'), title: 'Harry Styles, Ed Sheeran, Sabrina Carpenter,  và nhiều hơn nữa', id: '37i9dQZF1EVJSvZp5AOML2', name: 'Truyển tập của Vui Vẻ' },
+    { img: require('../assets/img/pop.jpg'), title: 'Olivia Rodrigo, Ariana Grande, Doja Cat, và nhiều hơn nữa', id: '37i9dQZF1EQncLwOalG3K7', name: 'Truyển tập của Pop' },
+    { img: require('../assets/img/hiphop.jpg'), title: 'Gill, Andree Right Hand, VSOUL, và nhiều hơn nữa', id: '37i9dQZF1EQnqst5TRi17F', name: 'Truyển tập của Hip-Hop' },
+    { img: require('../assets/img/kpop.jpg'), title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa', id: '37i9dQZF1EQpesGsmIyqcW', name: 'Truyển tập của K-Pop' },
 ]
 const listMusic = [
     { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), name: 'Anh Luôn Như Vậy', view: '2.456.785' },
@@ -224,21 +234,21 @@ const listMusic = [
 ]
 
 const arrDanhChoBan = [
-    { stt: 10, img: require('../assets/img/bigcityboi.jpg'), title: 'Big CITY Boi', view: '3.456.785',id:'4wP8sb7bodcx8WJ2WdOr8t' },
+    { stt: 10, img: require('../assets/img/bigcityboi.jpg'), title: 'Big CITY Boi', view: '3.456.785', id: '4wP8sb7bodcx8WJ2WdOr8t' },
     { stt: 11, img: require('../assets/img/hitmyup.jpg'), title: 'Hit My Up', view: '3.456.785' },
     { stt: 12, img: require('../assets/img/lover.jpg'), title: 'LOVER', view: '3.456.785' },
     { stt: 13, img: require('../assets/img/9k.jpg'), title: '9K', view: '3.456.785' },
-    { stt: 14, img: require('../assets/img/cuoithoi.jpg'), title: 'Cưới Thôi', view: '3.456.785',id:'6RMCQsYaJfXrA3Xor56eoy' },
+    { stt: 14, img: require('../assets/img/cuoithoi.jpg'), title: 'Cưới Thôi', view: '3.456.785', id: '6RMCQsYaJfXrA3Xor56eoy' },
 ]
 
 const arrDuatrenganDay = [
-    { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Anh Luôn Như Vậy', view: '2.456.785',id:'0FhHxPbrVgqu8VCgAXnu6r' },
-    { stt: 2, img: require('../assets/img/khongphaigu.jpg'), title: 'Không Phải Gu', view: '8.456.785',id:'6gmnN8bkcaO2JEZIIMHTdZ' },
-    { stt: 3, img: require('../assets/img/lunglo.jpg'), title: 'Lững Lơ', view: '3.456.785',id:'6W7kYUzE4D2gcCzUfcUqEv' },
-    { stt: 4, img: require('../assets/img/caooc20.jpg'), title: 'Cao Ốc 20', view: '2.456.785',id:'69ZVebCWOgaHzjUxDT5z9F' },
-    { stt: 5, img: require('../assets/img/hoanhao.jpg'), title: 'Hoàn Hảo', view: '4.456.785',id:'6zx0rpqKLoi0Yfk92hB0lY' },
-    { stt: 6, img: require('../assets/img/thieuthan.jpg'), title: 'Thiêu Thân', view: '7.456.785',id:'6Wit55JiLxH9WeS78v8Aa3' },
-    { stt: 7, img: require('../assets/img/xindungnhacmay.jpg'), title: 'Xin Đừng Nhấc Máy', view: '1.456.785' ,id:'6LpSc1OaeW35Q9zKNDltYX'},
+    { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Anh Luôn Như Vậy', view: '2.456.785', id: '0FhHxPbrVgqu8VCgAXnu6r' },
+    { stt: 2, img: require('../assets/img/khongphaigu.jpg'), title: 'Không Phải Gu', view: '8.456.785', id: '6gmnN8bkcaO2JEZIIMHTdZ' },
+    { stt: 3, img: require('../assets/img/lunglo.jpg'), title: 'Lững Lơ', view: '3.456.785', id: '6W7kYUzE4D2gcCzUfcUqEv' },
+    { stt: 4, img: require('../assets/img/caooc20.jpg'), title: 'Cao Ốc 20', view: '2.456.785', id: '69ZVebCWOgaHzjUxDT5z9F' },
+    { stt: 5, img: require('../assets/img/hoanhao.jpg'), title: 'Hoàn Hảo', view: '4.456.785', id: '6zx0rpqKLoi0Yfk92hB0lY' },
+    { stt: 6, img: require('../assets/img/thieuthan.jpg'), title: 'Thiêu Thân', view: '7.456.785', id: '6Wit55JiLxH9WeS78v8Aa3' },
+    { stt: 7, img: require('../assets/img/xindungnhacmay.jpg'), title: 'Xin Đừng Nhấc Máy', view: '1.456.785', id: '6LpSc1OaeW35Q9zKNDltYX' },
     { stt: 8, img: require('../assets/img/anhluonnhuvay.jpg'), title: 'Phía sau 1 CODER', view: '5.456.785' },
 ]
 const arrTamTrang = [

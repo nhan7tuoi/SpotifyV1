@@ -25,7 +25,7 @@ const LibraryNavigation = () => {
           headerRight: () => (
             <View
               style={{
-                width: "35%",
+                width: 100,
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",

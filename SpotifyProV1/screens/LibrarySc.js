@@ -18,6 +18,7 @@ const LibrarySc = ({navigation}) => {
     fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library")
       .then((response) => response.json())
       .then((json) => {
+        
         json.forEach((element) => {
           const temp = [];
           var url =
@@ -86,7 +87,7 @@ const LibrarySc = ({navigation}) => {
                     style={{
                       width: 70,
                       height: 70,
-                      borderRadius: "50%",
+                      borderRadius: 35,
                       margin: 10,
                     }}
                   />
@@ -122,7 +123,7 @@ const LibrarySc = ({navigation}) => {
                 style={{
                   width: 70,
                   height: 70,
-                  borderRadius: "50%",
+                  borderRadius: 35,
                   backgroundColor: "#333",
                   alignItems: "center",
                   justifyContent: "center",
