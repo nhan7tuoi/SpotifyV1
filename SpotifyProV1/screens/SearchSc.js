@@ -30,23 +30,23 @@ export default function SearchSc() {
           height: "100%",
         }}
       >
-          <Pressable
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              padding: 10,
-              width: "90%",
-              height: 45,
-              backgroundColor: "#fff",
-              borderRadius: 5,
-              marginBottom:'2%'
-            }}
-          >
-            <FontAwesome name="search" size={24} />
-            <Text style={{ fontSize: 15, fontWeight: "400", marginLeft: 10 }}>
-              Bạn muốn nghe gì?
-            </Text>
-          </Pressable>
+        <Pressable
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 10,
+            width: "90%",
+            height: 45,
+            backgroundColor: "#fff",
+            borderRadius: 5,
+            marginBottom: '2%'
+          }}
+        >
+          <FontAwesome name="search" size={24} />
+          <Text style={{ fontSize: 15, fontWeight: "400", marginLeft: 10 }}>
+            Bạn muốn nghe gì?
+          </Text>
+        </Pressable>
         <Text
           style={{
             fontSize: 16,
@@ -74,18 +74,32 @@ export default function SearchSc() {
                 borderRadius: 10,
                 justifyContent: "space-between",
                 alignItems: "center",
+                overflow: "hidden", // Ẩn phần tràn ra ngoài
               }}
             >
-              <Text style={{ color: "#fff", fontSize: 16, fontWeight: "400" }}>
+              <Text style={{ color: "#fff", fontSize: 16, fontWeight: "400", width: 80 }}>
                 {item.title}
               </Text>
-              <Image
-                source={{ uri: item.image }}
-                style={{ width: "40%", height: "70%", borderRadius: 10 }}
-              />
+              <View
+                style={{
+                  width: "50%",
+                  height: "90%",
+                  borderRadius: 10,
+                  overflow: "hidden", // Ẩn phần tràn ra ngoài
+                  transform: [{ rotate: '30deg' }], // Xoay 45 độ
+                  right: -25,
+                  bottom: -15,
+                }}
+              >
+                <Image
+                  source={{ uri: item.image }}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </View>
             </Pressable>
           )}
         />
+        <View style={{height:120}}/>
       </SafeAreaView>
     </LinearGradient>
   );

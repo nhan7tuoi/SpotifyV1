@@ -20,7 +20,6 @@ function AlbumSc({ navigation, route }) {
     const [follow, setFollow] = useState(item.follow);
     const [arrArtists, setArrArtists] = useState([]);
 
-    console.log(follow)
 
     const [progress, setProgress] = useState(null);
     const { currentTrack, setCurrentTrack } = useContext(Player);
@@ -75,9 +74,6 @@ function AlbumSc({ navigation, route }) {
     useEffect(() => {
         getListTracksArtists(accessToken);
     }, [accessToken]);
-
-    //
-    console.log('List Music', listMusic);
 
     //
     setListTrack(listMusic);
@@ -172,13 +168,13 @@ function AlbumSc({ navigation, route }) {
                                     <AntDesign name="left" size={24} color="white" />
                                 </Pressable>
                             </View>
-                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={item.img} />
+                            <Image style={{ width: '100%', height: '100%', alignSelf: 'center' }} source={{uri:item.img}} />
                             <Text numberOfLines={1} style={{ width: 350, color: '#fff', fontSize: 50, fontWeight: 'bold', position: 'absolute', zIndex: 2, bottom: 0, left: 20 }}>{item.name}</Text>
                         </View>
                         <LinearGradient colors={["#131624", "#040306"]}>
                             <View style={{ width: '100%', height: 90, padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ width: '75%' }}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'gray' }}>999,9 N người nghe hàng tháng</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'gray' }}>{item.view} N người nghe hàng tháng</Text>
                                     {follow ? (
                                         <Pressable
                                             style={{ width: 120, height: 40, borderRadius: 20, borderWidth: 1, borderColor: '#fff', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
