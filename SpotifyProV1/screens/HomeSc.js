@@ -135,8 +135,8 @@ export default function App({ navigation }) {
 
 
     return (
-        <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
-            <SafeAreaView>
+        <LinearGradient style={{ flex: 1,paddingTop:35 }} colors={["#040306", "#131624"]}>
+            <SafeAreaView style={{}}>
                 <ScrollView horizontal={false}>
                     <View style={{ flex: 1, padding: 15 }}>
                         <View style={{ width: '100%', height: 70, flexDirection: 'row', justifyContent: 'space-between' }}>

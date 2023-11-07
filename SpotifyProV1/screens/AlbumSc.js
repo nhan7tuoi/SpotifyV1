@@ -24,7 +24,7 @@ function AlbumSc({ navigation, route }) {
     const [follow, setFollow] = useState(item.follow);
     const [arrArtists, setArrArtists] = useState([]);
 
-    const [progress, setProgress] = useState(null);
+    // const [progress, setProgress] = useState(null);
     const { currentTrack, setCurrentTrack } = useContext(Player);
     const { currentProgress, setCurrentProgress } = useContext(Player);
     const { currentTime, setCurrentTime } = useContext(Player);
@@ -156,7 +156,7 @@ function AlbumSc({ navigation, route }) {
     };
     console.log(item);
     return (
-        <LinearGradient style={{ flex: 1 }} colors={["#131624", "#040306"]}>
+        <LinearGradient style={{ flex: 1,paddingTop:35 }} colors={["#131624", "#040306"]}>
             <SafeAreaView>
                 <ScrollView>
                     <View style={{ flex: 1 }}>

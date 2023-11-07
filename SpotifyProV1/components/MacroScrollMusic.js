@@ -109,7 +109,7 @@ function MacroScrollMusic({ click }) {
         }
     };
     return (
-        <LinearGradient style={{ flex: 1 }} colors={["#320026", "#29323c"]}>
+        <LinearGradient style={{ flex: 1 ,paddingTop:35}} colors={["#320026", "#29323c"]}>
             <SafeAreaView>
                 <ScrollView>
                     <View>

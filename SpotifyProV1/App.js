@@ -41,7 +41,9 @@ function BottomTabs() {
             width: 0,
             height: -4
           },
-          borderTopWidth: 0
+          borderTopWidth: 0,
+          //chinh tuy phone
+          height: 70,
         },
         tabBarActiveTintColor: 'white',
       }}>
