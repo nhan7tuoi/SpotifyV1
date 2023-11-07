@@ -9,30 +9,30 @@ import {
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
-const LibrarySc = ({navigation}) => {
-  const [library, setLibrary] = useState([]);
-  useEffect(() => {
-    fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library")
-      .then((response) => response.json())
-      .then((json) => {
-        
-        json.forEach((element) => {
-          const temp = [];
-          var url =
-            "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
-            element.artistID;
-          fetch(url)
-            .then((response) => response.json())
-            .then((json) => {
-              temp.push(json);
-              setLibrary(temp);
-            });
-        });
-      });
-  }, []);
+const LibrarySc = ({ navigation }) => {
+  const [data,setData]= useState([]);
+  useFocusEffect(
+    useCallback(() => {
+      fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1")
+        .then((response) => response.json())
+        .then((json) => {
+          const promises = json.artistID.map((element) => {
+            var url =
+              "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" + element;
+            return fetch(url).then((response) => response.json());
+          });
+          Promise.all(promises).then((results) => {
+            setData(results);
+            console.log(results);
+          });
+        }); 
+    }, [])
+  );
+
   return (
     <LinearGradient
       style={{ flex: 1, height: "100%" }}
@@ -70,47 +70,53 @@ const LibrarySc = ({navigation}) => {
         </View>
         <ScrollView style={{ width: "100%" }}>
           <View>
-            <FlatList
-              data={library}
-              renderItem={({ item }) => (
-                <Pressable
-                  onPress={() => navigation.navigate("ArtistsSc",{item})}
-                  style={{
-                    width: "90%",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    margin: 10,
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.image }}
+            {data.length != 0 ? (
+              <FlatList
+                data={data}
+                renderItem={({ item }) => (
+                  <Pressable
+                    onPress={() => navigation.navigate("ArtistsSc", { item })}
                     style={{
-                      width: 70,
-                      height: 70,
-                      borderRadius: 35,
+                      width: "90%",
+                      flexDirection: "row",
+                      alignItems: "center",
                       margin: 10,
                     }}
-                  />
-                  <View>
-                    <Text
-                      style={{ color: "#fff", fontSize: 15, fontWeight: "400" }}
-                    >
-                      {item.name}
-                    </Text>
-                    <Text
+                  >
+                    <Image
+                      source={{ uri: item.img }}
                       style={{
-                        color: "#fff",
-                        fontSize: 14,
-                        fontWeight: "400",
-                        opacity: 0.5,
+                        width: 70,
+                        height: 70,
+                        borderRadius: 35,
+                        margin: 10,
                       }}
-                    >
-                      Nghệ sĩ
-                    </Text>
-                  </View>
-                </Pressable>
-              )}
-            />
+                    />
+                    <View>
+                      <Text
+                        style={{
+                          color: "#fff",
+                          fontSize: 15,
+                          fontWeight: "400",
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#fff",
+                          fontSize: 14,
+                          fontWeight: "400",
+                          opacity: 0.5,
+                        }}
+                      >
+                        Nghệ sĩ
+                      </Text>
+                    </View>
+                  </Pressable>
+                )}
+              />
+            ) : null}
             <Pressable
               style={{
                 width: "90%",
@@ -171,4 +177,3 @@ const LibrarySc = ({navigation}) => {
 export default LibrarySc;
 
 const styles = StyleSheet.create({});
-
