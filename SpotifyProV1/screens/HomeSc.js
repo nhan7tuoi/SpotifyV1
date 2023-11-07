@@ -207,13 +207,13 @@ const arrTop = [
     { img: require('../assets/img/top20nhacviet.jpg'), name: 'Top 20 Nhạc Việt', id: '37i9dQZF1DX0DaTVvjIMEq' },
 ]
 const arrTuyenTap = [
-    { img: require('../assets/img/monstart.jpg'), title: 'B Ray, JSON và Đen', id: '37i9dQZF1EIY9s3GqwEtHW', name: 'Truyển tập của MONSTART' },
-    { img: require('../assets/img/greyd.jpg'), title: 'JSON, B Ray và Đen', id: '37i9dQZF1E4yTlMujiATpB', name: 'Truyển tập của GREY D' },
-    { img: require('../assets/img/buon.jpg'), title: 'The Waltes, Conan Gray, Jeremy Zucker và nhiều hơn nữa', id: '37i9dQZF1EVKuMoAJjoTIw', name: 'Truyển tập của Buồn' },
-    { img: require('../assets/img/vuive.jpg'), title: 'Harry Styles, Ed Sheeran, Sabrina Carpenter,  và nhiều hơn nữa', id: '37i9dQZF1EVJSvZp5AOML2', name: 'Truyển tập của Vui Vẻ' },
-    { img: require('../assets/img/pop.jpg'), title: 'Olivia Rodrigo, Ariana Grande, Doja Cat, và nhiều hơn nữa', id: '37i9dQZF1EQncLwOalG3K7', name: 'Truyển tập của Pop' },
-    { img: require('../assets/img/hiphop.jpg'), title: 'Gill, Andree Right Hand, VSOUL, và nhiều hơn nữa', id: '37i9dQZF1EQnqst5TRi17F', name: 'Truyển tập của Hip-Hop' },
-    { img: require('../assets/img/kpop.jpg'), title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa', id: '37i9dQZF1EQpesGsmIyqcW', name: 'Truyển tập của K-Pop' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699333967/TuyenTap/qj6sd1gewfkgfvz78rf4.jpg', title: 'B Ray, JSON và Đen', id: '37i9dQZF1EIY9s3GqwEtHW', name1: 'Truyển tập của MONSTART' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334218/TuyenTap/db7xeweblhsknsd2qn5u.jpg', title: 'JSON, B Ray và Đen', id: '37i9dQZF1E4yTlMujiATpB', name1: 'Truyển tập của GREY D' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334217/TuyenTap/ekcdriv0imp3v3amppjj.jpg', title: 'The Waltes, Conan Gray, Jeremy Zucker và nhiều hơn nữa', id: '37i9dQZF1EVKuMoAJjoTIw', name1: 'Truyển tập của Buồn' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334036/TuyenTap/mtdhnbe4rl43xbtntua6.jpg', title: 'Harry Styles, Ed Sheeran, Sabrina Carpenter,  và nhiều hơn nữa', id: '37i9dQZF1EVJSvZp5AOML2', name1: 'Truyển tập của Vui Vẻ' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334046/TuyenTap/jjqip1e7fmoxpmrlefpg.jpg', title: 'Olivia Rodrigo, Ariana Grande, Doja Cat, và nhiều hơn nữa', id: '37i9dQZF1EQncLwOalG3K7', name1: 'Truyển tập của Pop' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334054/TuyenTap/j5jmsvlrx0mi9kuixydo.jpg', title: 'Gill, Andree Right Hand, VSOUL, và nhiều hơn nữa', id: '37i9dQZF1EQnqst5TRi17F', name1: 'Truyển tập của Hip-Hop' },
+    { img: 'https://res.cloudinary.com/dskzzkovi/image/upload/v1699334049/TuyenTap/lty1lmanx9suzbpy5ubf.jpg', title: 'FIFTY FIFTY, ROSÉ, Jung Kook, và nhiều hơn nữa', id: '37i9dQZF1EQpesGsmIyqcW', name1: 'Truyển tập của K-Pop' },
 ]
 const listMusic = [
     { stt: 1, img: require('../assets/img/anhluonnhuvay.jpg'), name: 'Anh Luôn Như Vậy', view: '2.456.785' },

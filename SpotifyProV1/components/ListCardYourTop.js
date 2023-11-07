@@ -15,11 +15,11 @@ function ListCard({ txtHeader, arr,navigation}) {
                         renderItem={({ item }) => {
                             return (
                                 <Pressable onPress={()=>{
-                                    navigation.navigate('Album',{id:item.id,img:item.img})
+                                    navigation.navigate('Album',{item})
                                 }}
                                 style={{ marginRight: 20 }}>
                                     <View style={{ width: 150, height: 150, marginTop: 10 }}>
-                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={item.img} />
+                                        <Image resizeMode='contain' style={{ width: '100%', height: '100%' }} source={{uri:item.img}} />
                                     </View>
                                     <Text numberOfLines={2} style={{ color: 'gray', fontWeight: 500, marginTop: 10, width: 150 }}>{item.title}</Text>
                                 </Pressable>
