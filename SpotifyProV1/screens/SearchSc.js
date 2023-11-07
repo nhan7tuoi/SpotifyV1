@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FlatList, Image, Pressable, SafeAreaView, Text, View } from "react-native";
+import { FlatList, Image, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -11,7 +11,7 @@ const randomColor = () => {
     }
   }
 };
-export default function SearchSc() {
+export default function SearchSc({navigation}) {
   const [listTopic, setListTopic] = useState([]);
   useEffect(() => {
     fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Topic")
@@ -31,6 +31,7 @@ export default function SearchSc() {
         }}
       >
         <Pressable
+        onPress={()=>navigation.navigate("SearchSca")}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -39,7 +40,7 @@ export default function SearchSc() {
             height: 45,
             backgroundColor: "#fff",
             borderRadius: 5,
-            marginBottom: '2%'
+            marginBottom: "2%",
           }}
         >
           <FontAwesome name="search" size={24} />
@@ -58,48 +59,59 @@ export default function SearchSc() {
         >
           Duyệt tìm tất cả
         </Text>
-        <FlatList
-          style={{ width: "100%" }}
-          data={listTopic}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <Pressable
-              style={{
-                width: "45%",
-                height: 105,
-                flexDirection: "row",
-                backgroundColor: randomColor(),
-                padding: 10,
-                margin: "2%",
-                borderRadius: 10,
-                justifyContent: "space-between",
-                alignItems: "center",
-                overflow: "hidden", // Ẩn phần tràn ra ngoài
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 16, fontWeight: "400", width: 80 }}>
-                {item.title}
-              </Text>
-              <View
-                style={{
-                  width: "50%",
-                  height: "90%",
-                  borderRadius: 10,
-                  overflow: "hidden", // Ẩn phần tràn ra ngoài
-                  transform: [{ rotate: '30deg' }], // Xoay 45 độ
-                  right: -25,
-                  bottom: -15,
-                }}
-              >
-                <Image
-                  source={{ uri: item.image }}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </View>
-            </Pressable>
-          )}
-        />
-        <View style={{height:120}}/>
+        <ScrollView style={{ width: "100%"}}>
+          <View>
+            <FlatList
+              style={{ width: "100%" }}
+              data={listTopic}
+              numColumns={2}
+              renderItem={({ item }) => (
+                <Pressable
+                  style={{
+                    width: "45%",
+                    height: 105,
+                    flexDirection: "row",
+                    backgroundColor: randomColor(),
+                    padding: 10,
+                    margin: "2%",
+                    borderRadius: 10,
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    overflow: "hidden", // Ẩn phần tràn ra ngoài
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 16,
+                      fontWeight: "400",
+                      width: 80,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                  <View
+                    style={{
+                      width: "50%",
+                      height: "90%",
+                      borderRadius: 10,
+                      overflow: "hidden", // Ẩn phần tràn ra ngoài
+                      transform: [{ rotate: "30deg" }], // Xoay 45 độ
+                      right: -25,
+                      bottom: -15,
+                    }}
+                  >
+                    <Image
+                      source={{ uri: item.image }}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </View>
+                </Pressable>
+              )}
+            />
+            <View style={{ height: 120 }} />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </LinearGradient>
   );
