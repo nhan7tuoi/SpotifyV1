@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, Text, View, FlatList, Pressable, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,8 +8,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ListCard from '../components/ListCardYourTop';
 import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
-import DataAlbumTop from '../data/TracksBray';
 import ItemCard from '../components/ItemCard';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
@@ -24,6 +24,7 @@ export default function App({ navigation }) {
     const [listTracksDuaTrenGanDay, setListTrackDuaTrenGanDay] = useState([]);
     const [accessToken, setAccessToken] = useState(null);
     const [arrMusic, setArrMusic] = useState([]);
+    const [refreshFlag, setRefreshFlag] = useState(false);
 
     useEffect(() => {
         const getAccessTokenFromStorage = async () => {
@@ -122,14 +123,15 @@ export default function App({ navigation }) {
     };
     const message = greetingMessage();
 
-    useEffect(() => {
-        fetch("https://6545e7e8fe036a2fa954f228.mockapi.io/artists")
-            .then((response) => response.json())
-            .then((json) => {
-                setArrMusic(json);
-            })
-    }, []);
-
+    useFocusEffect(
+        useCallback(() => {
+            fetch("https://6545e7e8fe036a2fa954f228.mockapi.io/artists")
+                .then((response) => response.json())
+                .then((json) => {
+                    setArrMusic(json);
+                })
+        }, [])
+    );
 
 
     return (
