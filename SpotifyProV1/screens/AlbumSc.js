@@ -226,123 +226,149 @@ function AlbumSc({ navigation, route }) {
                                             )
                                         }
                                     </Text>
-                                    {follow ? (
-                                        <Pressable
-                                            onPress={() => {
-                                                fetch(
-                                                    "https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1",
-                                                    {
-                                                        method: "PUT",
-                                                        headers: {
-                                                            "Content-Type": "application/json",
-                                                        },
-                                                        body: JSON.stringify({
-                                                            artistID: arrArtists.filter(item => item !== idArtists),
-                                                        }),
-                                                    }
-                                                ).then((response) => {
-                                                    if (response.ok) {
+                                    {
+                                        (item?.description) ? (
+                                            (follow) ? (
+                                                <Pressable
+                                                    onPress={() => {
                                                         fetch(
-                                                            "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
-                                                            idArtists,
+                                                            "https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1",
                                                             {
                                                                 method: "PUT",
                                                                 headers: {
                                                                     "Content-Type": "application/json",
                                                                 },
                                                                 body: JSON.stringify({
-                                                                    follow: !follow,
+                                                                    artistID: arrArtists.filter(item => item !== idArtists),
                                                                 }),
                                                             }
                                                         ).then((response) => {
                                                             if (response.ok) {
-                                                                console.log("ok");
-                                                                setFollow(!follow);
+                                                                fetch(
+                                                                    "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
+                                                                    idArtists,
+                                                                    {
+                                                                        method: "PUT",
+                                                                        headers: {
+                                                                            "Content-Type": "application/json",
+                                                                        },
+                                                                        body: JSON.stringify({
+                                                                            follow: !follow,
+                                                                        }),
+                                                                    }
+                                                                ).then((response) => {
+                                                                    if (response.ok) {
+                                                                        console.log("ok");
+                                                                        setFollow(!follow);
+                                                                    }
+                                                                });
                                                             }
                                                         });
-                                                    }
-                                                });
-                                            }}
-                                            style={{
-                                                width: 120,
-                                                height: 40,
-                                                borderRadius: 20,
-                                                borderWidth: 1,
-                                                borderColor: "#fff",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                marginTop: 10,
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    fontSize: 12,
-                                                    fontWeight: "bold",
-                                                    color: "#fff",
-                                                }}
-                                            >
-                                                Đang theo dõi
-                                            </Text>
-                                        </Pressable>
-                                    ) : (
-                                        <Pressable
-                                            onPress={() => {
-                                                fetch(
-                                                    "https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1",
-                                                    {
-                                                        method: "PUT",
-                                                        headers: {
-                                                            "Content-Type": "application/json",
-                                                        },
-                                                        body: JSON.stringify({
-                                                            artistID: [...arrArtists, idArtists],
-                                                        }),
-                                                    }
-                                                ).then((response) => {
-                                                    if (response.ok) {
+                                                    }}
+                                                    style={{
+                                                        width: 120,
+                                                        height: 40,
+                                                        borderRadius: 20,
+                                                        borderWidth: 1,
+                                                        borderColor: "#fff",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        marginTop: 10,
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={{
+                                                            fontSize: 12,
+                                                            fontWeight: "bold",
+                                                            color: "#fff",
+                                                        }}
+                                                    >
+                                                        Đang theo dõi
+                                                    </Text>
+                                                </Pressable>
+                                            ) : (
+                                                <Pressable
+                                                    onPress={() => {
                                                         fetch(
-                                                            "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
-                                                            idArtists,
+                                                            "https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1",
                                                             {
                                                                 method: "PUT",
                                                                 headers: {
                                                                     "Content-Type": "application/json",
                                                                 },
                                                                 body: JSON.stringify({
-                                                                    follow: !follow,
+                                                                    artistID: [...arrArtists, idArtists],
                                                                 }),
                                                             }
                                                         ).then((response) => {
                                                             if (response.ok) {
-                                                                console.log("ok");
-                                                                setFollow(!follow);
+                                                                fetch(
+                                                                    "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
+                                                                    idArtists,
+                                                                    {
+                                                                        method: "PUT",
+                                                                        headers: {
+                                                                            "Content-Type": "application/json",
+                                                                        },
+                                                                        body: JSON.stringify({
+                                                                            follow: !follow,
+                                                                        }),
+                                                                    }
+                                                                ).then((response) => {
+                                                                    if (response.ok) {
+                                                                        console.log("ok");
+                                                                        setFollow(!follow);
+                                                                    }
+                                                                });
                                                             }
                                                         });
-                                                    }
-                                                });
-                                            }}
-                                            style={{
-                                                width: 120,
-                                                height: 40,
-                                                borderRadius: 20,
-                                                borderWidth: 1,
-                                                borderColor: "#fff",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                marginTop: 10,
-                                            }}
-                                        >
-                                            <Text
+                                                    }}
+                                                    style={{
+                                                        width: 120,
+                                                        height: 40,
+                                                        borderRadius: 20,
+                                                        borderWidth: 1,
+                                                        borderColor: "#fff",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        marginTop: 10,
+                                                    }}
+                                                >
+                                                    <Text
+                                                        style={{
+                                                            fontSize: 12,
+                                                            fontWeight: "bold",
+                                                            color: "#fff",
+                                                        }}
+                                                    >
+                                                        Theo dõi
+                                                    </Text>
+                                                </Pressable>
+                                            )
+                                        ) : (
+                                            <Pressable
                                                 style={{
-                                                    fontSize: 12,
-                                                    fontWeight: "bold",
-                                                    color: "#fff",
-                                                }}
-                                            >
-                                                Theo dõi
-                                            </Text>
-                                        </Pressable>
-                                    )}
+                                                    width: 120,
+                                                    height: 40,
+                                                    borderRadius: 20,
+                                                    borderWidth: 1,
+                                                    borderColor: "#fff",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                    marginTop: 10,
+                                                }}>
+                                                <Text
+                                                    style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#fff",
+                                                    }}
+                                                >
+                                                    Playlist
+                                                </Text>
+                                            </Pressable>
+                                        )
+                                    }
                                 </View>
                                 <View
                                     style={{
