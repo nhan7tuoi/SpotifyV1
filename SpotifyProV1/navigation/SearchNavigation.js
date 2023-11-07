@@ -2,11 +2,13 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import SearchSc from '../screens/SearchSc';
 import { FontAwesome } from "@expo/vector-icons";
+import SearchSca from '../screens/SearchSca';
+import AlbumSc from '../screens/AlbumSc';
 
 const stack = createNativeStackNavigator();
 const SearchNavigation = () => {
   return (
-    <stack.Navigator>
+    <stack.Navigator initialRouteName='SearchSc'>
       <stack.Screen
         name="SearchSc"
         component={SearchSc}
@@ -36,6 +38,10 @@ const SearchNavigation = () => {
           ),
         }}
       />
+      <stack.Screen name='SearchSca' component={SearchSca}
+        options={{headerShown:false}}
+      />
+      <stack.Screen name='ArtistsSc' component={AlbumSc} options={{headerShown:false}}/>
     </stack.Navigator>
   );
 }

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
 import LibrarySc from "../screens/LibrarySc";
-import ArtistsSc from "../screens/ArtistsSc";
+import AlbumSc from "../screens/AlbumSc";
 
 const stack = createNativeStackNavigator();
 const LibraryNavigation = () => {
@@ -42,16 +42,8 @@ const LibraryNavigation = () => {
           ),
         }}
       />
-      <stack.Screen name="ArtistsSc" component={ArtistsSc}
-        options={({navigation})=>({
-          headerTitle:"",
-          headerStyle:{backgroundColor:"black"},
-          headerLeft:()=>(
-            <Pressable onPress={()=>navigation.goBack()} style={{marginLeft:20}}>
-              <FontAwesome name="chevron-left" size={24} color={"#fff"}/>
-            </Pressable>
-          )
-        })}
+      <stack.Screen name="ArtistsSc" component={AlbumSc}
+      options={{headerShown:false}}        
       />
     </stack.Navigator>
   );
