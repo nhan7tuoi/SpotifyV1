@@ -135,12 +135,19 @@ export default function App({ navigation }) {
 
 
     return (
-        <LinearGradient style={{ flex: 1,paddingTop:35 }} colors={["#040306", "#131624"]}>
+        <LinearGradient style={{ flex: 1, paddingTop: 35 }} colors={["#040306", "#131624"]}>
             <SafeAreaView style={{}}>
                 <ScrollView horizontal={false}>
                     <View style={{ flex: 1, padding: 15 }}>
                         <View style={{ width: '100%', height: 70, flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>{message}</Text>
+                            <View style={{ flexDirection: 'row', gap: 10 }}>
+                                <Pressable onPress={()=>{
+                                    navigation.navigate('Profile')
+                                }}>
+                                    <Image style={{ width: 36, height: 36, borderRadius: 18 }} source={require('../assets/img/nhan.jpg')} />
+                                </Pressable>
+                                <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>{message}</Text>
+                            </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '30%', paddingTop: 5 }}>
                                 <Pressable>
                                     <FontAwesome5 name="bell" size={24} color="white" />

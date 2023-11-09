@@ -3,9 +3,18 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import MiniScrollMusic from "./MiniScrollMusic";
 import MacroScrollMusic from "./MacroScrollMusic";
 
+
+const randomColor = () => {
+    while (true) {
+        const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        if (color !== "#ffffff") {
+            return color;
+        }
+    }
+};
 const { width: wWidth, height: wHeight } = Dimensions.get("window");
 const HEIGHT = wHeight;
-const MIN_HEIGHT = wHeight * 0.08;
+const MIN_HEIGHT = wHeight * 0.07;
 const ThanhNhac = () => {
     const [isMinimize, setIsMinimize] = useState(true);
     const _onMinimizeClick = () => {
@@ -30,12 +39,12 @@ const ThanhNhac = () => {
 
 const styles = StyleSheet.create({
     min: {
-        width: '95%', height: 70, backgroundColor: '#320026', borderRadius: 10, position: "absolute",
+        width: '95%', height: 55, backgroundColor: '#11521c', borderRadius: 10, position: "absolute",
         justifyContent: "flex-end",
         bottom: 72,
         zIndex: 2,
         marginLeft: 10,
-        height: MIN_HEIGHT,
+        // height: MIN_HEIGHT,
     },
     max: {
         height: HEIGHT,

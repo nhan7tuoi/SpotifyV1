@@ -41,6 +41,7 @@ export default function SearchSc({navigation}) {
             backgroundColor: "#fff",
             borderRadius: 5,
             marginBottom: "2%",
+            marginTop: "5%",
           }}
         >
           <FontAwesome name="search" size={24} />

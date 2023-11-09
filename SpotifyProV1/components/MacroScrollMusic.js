@@ -70,7 +70,7 @@ function MacroScrollMusic({ click }) {
         // console.log(nextTrack);
         const preview_url = nextTrack.track.preview_url;
         try {
-            if(currentSound){
+            if (currentSound) {
                 await currentSound.stopAsync();
             }
             await Audio.setAudioModeAsync({
@@ -103,13 +103,13 @@ function MacroScrollMusic({ click }) {
             setCurrentTime(status.positionMillis);
             setDuration(status.durationMillis);
         }
-        if(status.didJustFinish === true){
+        if (status.didJustFinish === true) {
             setCurrentSound(null);
             handleNext();
         }
     };
     return (
-        <LinearGradient style={{ flex: 1 ,paddingTop:35}} colors={["#320026", "#29323c"]}>
+        <LinearGradient style={{ flex: 1, paddingTop: 35 }} colors={["#0d4216", "#29323c"]}>
             <SafeAreaView>
                 <ScrollView>
                     <View>
@@ -119,7 +119,7 @@ function MacroScrollMusic({ click }) {
                             }}>
                                 <AntDesign name="down" size={24} color="white" />
                             </Pressable>
-                            <Text numberOfLines={2} style={{ fontWeight: 'bold', color: '#fff', fontSize: 18 ,width:300}}>{
+                            <Text numberOfLines={2} style={{ fontWeight: 'bold', color: '#fff', fontSize: 14,textAlign:'center' }}>{
                                 currentTrack.track?.name ? currentTrack.track?.name : currentTrack.name
                             }</Text>
                             <Pressable>
@@ -128,13 +128,13 @@ function MacroScrollMusic({ click }) {
                         </View>
                         <View style={{ justifyContent: 'center', width: wWidth, alignItems: 'center' }}>
                             <Image style={{ width: wWidth - 40, height: wHeight * 0.4, borderRadius: 10 }} source={{
-                                 uri: currentTrack.track?.album?.images[0].url ? currentTrack.track?.album?.images[0].url : currentTrack.album?.images[0].url
+                                uri: currentTrack.track?.album?.images[0].url ? currentTrack.track?.album?.images[0].url : currentTrack.album?.images[0].url
                             }} />
                         </View>
                         <View style={{ padding: 20 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View>
-                                    <Text numberOfLines={2} style={{ color: '#fff', fontSize: 20, fontWeight: 'bold', paddingBottom: 5,width:300 }}>{
+                                    <Text numberOfLines={2} style={{ color: '#fff', fontSize: 20, fontWeight: 'bold', paddingBottom: 5, width: 300 }}>{
                                         currentTrack.track?.name ? currentTrack.track?.name : currentTrack.name
                                     }</Text>
                                     <Text style={{ color: '#ccc', fontSize: 16, fontWeight: '500' }}>{

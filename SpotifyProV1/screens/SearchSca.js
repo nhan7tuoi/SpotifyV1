@@ -32,21 +32,21 @@ const SearchSca = ({ navigation }) => {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            height: "5%",
+            height: "7%",
             width: "100%",
             backgroundColor: "#333",
           }}
         >
           <Pressable
             onPress={() => navigation.goBack()}
-            style={{ position: "absolute", left: 20 }}
+            style={{ position: "absolute", left: 10 ,height:'100%',width:'10%',justifyContent:'center',alignItems:'center'}}
           >
-            <FontAwesome name="angle-left" size={24} color={"#fff"} />
+            <FontAwesome name="angle-left" size={32} color={"#fff"}/>
           </Pressable>
           <TextInput
             style={{
               width: "100%",
-              paddingLeft: 40,
+              paddingLeft: 60,
               height: "100%",
               fontSize: 16,
               color: "#fff",
