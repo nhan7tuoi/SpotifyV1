@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     min: {
         width: '95%', height: 55, backgroundColor: '#11521c', borderRadius: 10, position: "absolute",
         justifyContent: "flex-end",
-        bottom: 72,
+        bottom: 82,
         zIndex: 2,
         marginLeft: 10,
         // height: MIN_HEIGHT,

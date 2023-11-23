@@ -104,10 +104,10 @@ export default function App({ navigation }) {
                             </Text>
                         </Pressable>
                         <Pressable
-                            onPress={() => { navigation.navigate("Main"); }}
+                            onPress={() => { navigation.navigate("SignUp"); }}
                             style={{ width: 200, height: 50, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Login
+                                Sign up
                             </Text>
                         </Pressable>
                     </View>
