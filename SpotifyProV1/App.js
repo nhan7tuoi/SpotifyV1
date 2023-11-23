@@ -14,6 +14,7 @@ import AlbumSc from './screens/AlbumSc';
 import SearchNavigation from './navigation/SearchNavigation';
 import LibraryNavigation from './navigation/LibraryNavigation';
 import ProfileSc from './screens/ProfileSc';
+import SignUpNavigation from './navigation/SignUpNavigation';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -111,6 +112,7 @@ function StackNavigation() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={BottomTabs} />
       <Stack.Screen name="Profile" component={ProfileSc} />
+      <Stack.Screen name="SignUp" component={SignUpNavigation} />
       {/*  */}
     </Stack.Navigator>
   )

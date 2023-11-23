@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SafeAreaView, Text, View, FlatList, Pressable, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -10,6 +10,8 @@ import ListCard from '../components/ListCardYourTop';
 import RecentlyPlayedCard from '../components/RecentlyPlayedCard';
 import ItemCard from '../components/ItemCard';
 import { useFocusEffect } from '@react-navigation/native';
+
+import { Video } from 'expo-av';
 
 
 
@@ -25,6 +27,41 @@ export default function App({ navigation }) {
     const [accessToken, setAccessToken] = useState(null);
     const [arrMusic, setArrMusic] = useState([]);
     const [refreshFlag, setRefreshFlag] = useState(false);
+
+    const videoTopRef = useRef(null);
+    const videoBottomRef = useRef(null);
+    const [mutedTop, setMutedTop] = useState(true);
+    const [mutedBottom, setMutedBottom] = useState(true);
+
+    const handleVideoPlaybackStatusUpdate = (status, videoRef, setMuted) => {
+        if (status.didJustFinish) {
+            videoRef.current.replayAsync();
+        }
+    };
+    useEffect(() => {
+        const onTopVideoPlaybackStatusUpdate = (status) => {
+            handleVideoPlaybackStatusUpdate(status, videoTopRef, setMutedTop);
+        };
+
+        const onBottomVideoPlaybackStatusUpdate = (status) => {
+            handleVideoPlaybackStatusUpdate(status, videoBottomRef, setMutedBottom);
+        };
+
+        const topVideoStatusSubscription = videoTopRef.current?.setOnPlaybackStatusUpdate(onTopVideoPlaybackStatusUpdate);
+        const bottomVideoStatusSubscription = videoBottomRef.current?.setOnPlaybackStatusUpdate(onBottomVideoPlaybackStatusUpdate);
+
+        return () => {
+            if (topVideoStatusSubscription) {
+                topVideoStatusSubscription.remove();
+            }
+            if (bottomVideoStatusSubscription) {
+                bottomVideoStatusSubscription.remove();
+            }
+        };
+    }, []);
+
+
+
 
     useEffect(() => {
         const getAccessTokenFromStorage = async () => {
@@ -141,7 +178,7 @@ export default function App({ navigation }) {
                     <View style={{ flex: 1, padding: 15 }}>
                         <View style={{ width: '100%', height: 70, flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row', gap: 10 }}>
-                                <Pressable onPress={()=>{
+                                <Pressable onPress={() => {
                                     navigation.navigate('Profile')
                                 }}>
                                     <Image style={{ width: 36, height: 36, borderRadius: 18 }} source={require('../assets/img/nhan.jpg')} />
@@ -199,6 +236,31 @@ export default function App({ navigation }) {
                         <ItemCard arr={listTracksYour} txtHeader='Dành cho bạn' navigation={navigation} />
                         <ItemCard arr={listTracksDuaTrenGanDay} txtHeader='Đưa trên gần đây' navigation={navigation} />
                         <ItemCard arr={listTracksTamTrang} txtHeader='Tâm trạng' navigation={navigation} />
+
+                        <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>Một số video ngắn dành cho bạn </Text>
+                        <View style={{ height: 500, width: '100%', marginVertical: 40 }}>
+                            <View>
+                                <Video
+                                    ref={videoTopRef}
+                                    source={{ uri: 'https://res.cloudinary.com/dskzzkovi/video/upload/v1700726246/VideoStorySpotify/xf7y9337hhtgwxutlxwp.mp4' }}
+                                    style={{ width: '100%', height: '100%',borderRadius:20 }}
+                                    useNativeControls
+                                    isMuted={mutedTop}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={{ height: 500, width: '100%',marginVertical: 20  }}>
+                            <View>
+                                <Video
+                                    ref={videoBottomRef}
+                                    source={{ uri: 'https://res.cloudinary.com/dskzzkovi/video/upload/v1700726242/VideoStorySpotify/fgz2toxmhkgp0nktxar0.mp4' }}
+                                    style={{ width: '100%', height: '100%',borderRadius:20  }}
+                                    useNativeControls
+                                    isMuted={mutedBottom}
+                                />
+                            </View>
+                        </View>
                         <View style={{ height: 50 }} />
                     </View>
                 </ScrollView>

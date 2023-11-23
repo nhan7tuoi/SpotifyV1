@@ -28,7 +28,7 @@ const Profile = ({navigation}) => {
                         </Pressable>
                         {arrSetting.map((item) => {
                             return (
-                                <Pressable style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 10 }}>
+                                <Pressable key={item.id} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 10 }}>
                                     <Text style={{ color: '#fff', fontSize: 16, fontWeight: 600 }}>{item.name}</Text>
                                     <AntDesign name="right" size={24} color="white" />
                                 </Pressable>
