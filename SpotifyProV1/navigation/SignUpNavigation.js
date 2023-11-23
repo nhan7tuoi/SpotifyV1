@@ -1,11 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Pressable, TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import SignUpSc_a from "../screens/SignUpSc_a";
 import SignUpSc_b from "../screens/SignUpSc_b";
 import SignUpSc_c from '../screens/SignUpSc_c';
 import SignUpSc_d from '../screens/SignUpSc_d';
+import SignUpSc_e from '../screens/SignUpSc_e';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +27,7 @@ const SignUpNavigation = ({ navigation }) => {
                 component={SignUpSc_a}
                 options={
                     {
-                        title: "Đăng ký",
+                        title: "Create account",
                         headerLeft: () => (
                             <Pressable
                                 style={{ marginLeft: 15 }}
@@ -45,7 +46,7 @@ const SignUpNavigation = ({ navigation }) => {
                 component={SignUpSc_b}
                 options={
                     {
-                        title: "Đăng ký",
+                        title: "Create account",
                         headerLeft: () => (
                             <Pressable
                                 style={{ marginLeft: 15 }}
@@ -64,7 +65,7 @@ const SignUpNavigation = ({ navigation }) => {
                 component={SignUpSc_c}
                 options={
                     {
-                        title: "Đăng ký",
+                        title: "Create account",
                         headerLeft: () => (
                             <Pressable
                                 style={{ marginLeft: 15 }}
@@ -83,7 +84,26 @@ const SignUpNavigation = ({ navigation }) => {
                 component={SignUpSc_d}
                 options={
                     {
-                        title: "Đăng ký",
+                        title: "Create account",
+                        headerLeft: () => (
+                            <Pressable
+                                style={{ marginLeft: 15 }}
+                                onPress={() => {
+                                    navigation.goBack();
+                                }}
+                            >
+                                <AntDesign name="left" size={24} color="white" />
+                            </Pressable>
+                        ),
+                    }
+                }
+            />
+            <Stack.Screen
+                name="SignUpSc_e"
+                component={SignUpSc_e}
+                options={
+                    {
+                        title: "Choose 3 or monre artists you like",
                         headerLeft: () => (
                             <Pressable
                                 style={{ marginLeft: 15 }}

@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, TextInput, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const SignUpSc_c = () => {
+const SignUpSc_d = ({navigation}) => {
     return (
         <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
             <SafeAreaView style={{ flex: 1 }}>
@@ -13,7 +13,10 @@ const SignUpSc_c = () => {
                    <Text style={{color:'#fff',fontSize:12,fontWeight:500}}>This appears on your spotify profile.</Text>
                 </View>
                 <View style={{justifyContent:'center',alignItems:'center',width:'100%'}}>
-                    <Pressable style={{backgroundColor:'#474444',height:50,width:180,borderRadius:20,justifyContent:'center',alignItems:'center'}}>
+                    <Pressable onPress={()=>{
+                        navigation.navigate('SignUpSc_e');
+                    }}
+                    style={{backgroundColor:'#474444',height:50,width:180,borderRadius:20,justifyContent:'center',alignItems:'center'}}>
                         <Text style={{color:'#fff',fontSize:20,fontWeight:'bold'}}>Create Account</Text>
                     </Pressable>
                 </View>
@@ -22,4 +25,4 @@ const SignUpSc_c = () => {
     );
 }
 
-export default SignUpSc_c;
+export default SignUpSc_d;
