@@ -110,7 +110,7 @@ const LibrarySc = ({ navigation }) => {
                           opacity: 0.5,
                         }}
                       >
-                        Nghệ sĩ
+                        {item.role}
                       </Text>
                     </View>
                   </Pressable>

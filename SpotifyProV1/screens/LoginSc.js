@@ -57,63 +57,179 @@ export default function App({ navigation }) {
     
     console.log('Token',accessToken);
     return (
-        <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
-            <SafeAreaView style={styles.container}>
-                <View style={{ width: '100%', height: '30%' }}>
-                </View>
-                <View style={{ width: '100%', height: '70%', justifyContent: 'space-around', alignItems: 'center' }}>
-                    <Entypo name="spotify" size={80} color="white" />
-                    <View style={{ width: '100%' }}>
-                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                            Millions of songs.
-                        </Text>
-                        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                            Free on Spotify.
-                        </Text>
-                    </View>
-                    <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <Pressable
-                            onPress={() => promptAsync()}
-                            style={{ width: '80%', height: 50, backgroundColor: '#1CDE43', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                                Login with Spotify
-                            </Text>
-                        </Pressable>
-                        <Pressable style={styles.btn}>
-                            <Image source={require('../assets/icon/iconPhone.png')} resizeMode='contain' style={{ width: 24, height: 24, position: 'absolute', left: 10 }} />
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Continute with phone number
-                            </Text>
-                        </Pressable>
-                        <Pressable style={styles.btn}>
-                            <Image source={require('../assets/icon/iconGoogle.png')} resizeMode='contain' style={{ width: 24, height: 24, position: 'absolute', left: 10 }} />
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Continute with Google
-                            </Text>
-                        </Pressable>
-                        <Pressable style={styles.btn}>
-                            <Image source={require('../assets/icon/iconFB.png')} resizeMode='contain' style={{ width: 24, height: 24, position: 'absolute', left: 10 }} />
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Continute with Facebook
-                            </Text>
-                        </Pressable>
-                        <Pressable style={styles.btn}>
-                            <Image source={require('../assets/icon/VectorApple.png')} resizeMode='contain' style={{ width: 24, height: 24, position: 'absolute', left: 10 }} />
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Continute with Apple
-                            </Text>
-                        </Pressable>
-                        <Pressable
-                            onPress={() => { navigation.navigate("SignUp"); }}
-                            style={{ width: 200, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff', alignSelf: 'center' }}>
-                                Sign up
-                            </Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </SafeAreaView>
-        </LinearGradient>
+      <LinearGradient style={{ flex: 1 }} colors={["#040306", "#131624"]}>
+        <SafeAreaView style={styles.container}>
+          <View style={{ width: "100%", height: "30%" }}></View>
+          <View
+            style={{
+              width: "100%",
+              height: "70%",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Entypo name="spotify" size={80} color="white" />
+            <View style={{ width: "100%" }}>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  color: "#fff",
+                  alignSelf: "center",
+                }}
+              >
+                Millions of songs.
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  color: "#fff",
+                  alignSelf: "center",
+                }}
+              >
+                Free on Spotify.
+              </Text>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Pressable
+                onPress={() => promptAsync()}
+                style={{
+                  width: "80%",
+                  height: 50,
+                  backgroundColor: "#1CDE43",
+                  borderRadius: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  Login with Spotify
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.btn}
+                onPress={() => navigation.navigate("Main")}
+              >
+                <Image
+                  source={require("../assets/icon/iconPhone.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    position: "absolute",
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    alignSelf: "center",
+                  }}
+                >
+                  Continute with phone number
+                </Text>
+              </Pressable>
+              <Pressable style={styles.btn}>
+                <Image
+                  source={require("../assets/icon/iconGoogle.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    position: "absolute",
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    alignSelf: "center",
+                  }}
+                >
+                  Continute with Google
+                </Text>
+              </Pressable>
+              <Pressable style={styles.btn}>
+                <Image
+                  source={require("../assets/icon/iconFB.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    position: "absolute",
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    alignSelf: "center",
+                  }}
+                >
+                  Continute with Facebook
+                </Text>
+              </Pressable>
+              <Pressable style={styles.btn}>
+                <Image
+                  source={require("../assets/icon/VectorApple.png")}
+                  resizeMode="contain"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    position: "absolute",
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    alignSelf: "center",
+                  }}
+                >
+                  Continute with Apple
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate("SignUp");
+                }}
+                style={{
+                  width: 200,
+                  height: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    alignSelf: "center",
+                  }}
+                >
+                  Sign up
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </SafeAreaView>
+      </LinearGradient>
     );
 }
 const styles = StyleSheet.create({

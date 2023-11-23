@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { FlatList, Image, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -11,13 +19,14 @@ const randomColor = () => {
     }
   }
 };
-export default function SearchSc({navigation}) {
-  const [listTopic, setListTopic] = useState([]);
-  useEffect(() => {
-    fetch("https://655f4f0c879575426b45130c.mockapi.io/topic")
-      .then((response) => response.json())
-      .then((json) => setListTopic(json));
-  }, []);
+
+const Podcastsa = ({navigation}) => {
+    const [listTopic, setListTopic] = useState([]);
+    useEffect(() => {
+      fetch("https://65572970bd4bcef8b61227ce.mockapi.io/topics")
+        .then((response) => response.json())
+        .then((json) => setListTopic(json));
+    }, []);
   return (
     <LinearGradient
       style={{ flex: 1, height: "100%" }}
@@ -30,25 +39,6 @@ export default function SearchSc({navigation}) {
           height: "100%",
         }}
       >
-        <Pressable
-        onPress={()=>navigation.navigate("SearchSca")}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-            width: "90%",
-            height: 45,
-            backgroundColor: "#fff",
-            borderRadius: 5,
-            marginBottom: "2%",
-            marginTop: "5%",
-          }}
-        >
-          <FontAwesome name="search" size={24} />
-          <Text style={{ fontSize: 15, fontWeight: "400", marginLeft: 10 }}>
-            Bạn muốn nghe gì?
-          </Text>
-        </Pressable>
         <Text
           style={{
             fontSize: 16,
@@ -56,11 +46,12 @@ export default function SearchSc({navigation}) {
             color: "#fff",
             width: "90%",
             height: "5%",
+            textAlign: "center",
           }}
         >
-          Duyệt tìm tất cả
+          Danh mục
         </Text>
-        <ScrollView style={{ width: "100%"}}>
+        <ScrollView style={{ width: "100%" }}>
           <View>
             <FlatList
               style={{ width: "100%" }}
@@ -68,14 +59,7 @@ export default function SearchSc({navigation}) {
               numColumns={2}
               renderItem={({ item }) => (
                 <Pressable
-                onPress={()=>{
-                  if(item.title === 'Podcasts'){
-                    navigation.navigate("Podcastsa");
-                  }
-                  else {
-                    navigation.navigate("MusicSearch",{id: item.id,title:item.title});
-                  }
-                }}
+                  onPress={() => navigation.navigate("Podcastsb",{item})}
                   style={{
                     width: "45%",
                     height: 105,
@@ -124,4 +108,7 @@ export default function SearchSc({navigation}) {
       </SafeAreaView>
     </LinearGradient>
   );
-}
+};
+
+export default Podcastsa;
+
