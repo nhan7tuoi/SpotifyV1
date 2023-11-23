@@ -2,7 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeSc";
 import AlbumScreen from "../screens/AlbumSc";
-import ProfileSc from "../screens/ProfileSc";
+import ProfileNavigation from "./ProfileNavigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +26,7 @@ function HomeNavigation() {
       />
       <Stack.Screen
         name="Profile"
-        component={ProfileSc}
+        component={ProfileNavigation}
         options={{
           headerTitle: "Cá Nhân",
           headerTitleStyle: {

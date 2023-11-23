@@ -13,6 +13,7 @@ import { PlayerContext, Player } from './PlayerContext';
 import AlbumSc from './screens/AlbumSc';
 import SearchNavigation from './navigation/SearchNavigation';
 import LibraryNavigation from './navigation/LibraryNavigation';
+import ProfileSc from './screens/ProfileSc';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -43,7 +44,7 @@ function BottomTabs() {
           },
           borderTopWidth: 0,
           //chinh tuy phone
-          height: 70,
+          height: 80,
         },
         tabBarActiveTintColor: 'white',
       }}>
@@ -109,6 +110,7 @@ function StackNavigation() {
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Main" component={BottomTabs} />
+      <Stack.Screen name="Profile" component={ProfileSc} />
       {/*  */}
     </Stack.Navigator>
   )
@@ -117,7 +119,6 @@ function StackNavigation() {
 export default function App() {
   return (
     <NavigationContainer>
-
       <PlayerContext>
         <StackNavigation />
       </PlayerContext>

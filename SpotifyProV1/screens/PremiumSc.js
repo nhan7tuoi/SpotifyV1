@@ -16,7 +16,7 @@ export default function App() {
                         <ScrollView horizontal={true}>
                             {arrPremium.map((item) => {
                                 return (
-                                    <View style={{ marginRight: 20 }}>
+                                    <View key={item.id} style={{ marginRight: 20 }}>
                                         <View style={{ width: 240, height: 140, flexDirection: 'row' }}>
                                             <View style={{ width: '50%', height: '100%', backgroundColor: 'gray', alignItems: 'center', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, padding: 5 }}>
                                                 <Text style={{ color: '#fff', fontSize: 12, fontWeight: 'bold' }}>MIỄN PHÍ</Text>
@@ -53,7 +53,7 @@ export default function App() {
                                 <Text style={{ fontSize: 14, fontWeight: 'bold' }}>MIỄN PHÍ 1 THÁNG</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20, color: '#fff', fontWeight: 'bold' }}>Premium Individual</Text>
+                                <Text style={{ fontSize: 24, color: '#fff', fontWeight: 'bold' }}>Premium Individual</Text>
                             </View>
                             <View>
                                 <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>
@@ -62,13 +62,13 @@ export default function App() {
                                 </Text>
                             </View>
                         </LinearGradient>
-                        <LinearGradient colors={['#ed9128', '#c27319']}
+                        <LinearGradient colors={['#ed9128', '#faa543']}
                             style={{ borderRadius: 5, width: '100%', height: 250, padding: 20, justifyContent: 'space-around', borderRadius: 10 }} >
                             <View style={{ width: 140, height: 30, backgroundColor: '#c7cbd1', justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 14, fontWeight: 'bold' }}>MIỄN PHÍ 1 THÁNG</Text>
                             </View>
                             <View style={{ alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20, color: '#fff', fontWeight: 'bold' }}>Premium Individual</Text>
+                                <Text style={{ fontSize: 24, color: '#fff', fontWeight: 'bold' }}>Premium Student</Text>
                             </View>
                             <View>
                                 <Text style={{ color: '#fff', textAlign: 'center' }}>
@@ -85,9 +85,9 @@ export default function App() {
     );
 }
 const arrPremium = [
-    { txt1: 'Có quảng cáo', txt2: 'Nghe nhạc không quảng cáo' },
-    { txt1: 'Phát ở chế độ ngẫu nhiên', txt2: 'Phát theo thứ tự bất kỳ' },
-    { txt1: 'Chất lượng ấm thanh cơ bản', txt2: 'Chất lượng ấm thanh vượt trội' },
-    { txt1: 'Chỉ nghe trực tuyến', txt2: 'Nghe nhạc không cần mạng' },
+    { txt1: 'Có quảng cáo', txt2: 'Nghe nhạc không quảng cáo' ,id:1},
+    { txt1: 'Phát ở chế độ ngẫu nhiên', txt2: 'Phát theo thứ tự bất kỳ',id:2 },
+    { txt1: 'Chất lượng ấm thanh cơ bản', txt2: 'Chất lượng ấm thanh vượt trội' ,id:3},
+    { txt1: 'Chỉ nghe trực tuyến', txt2: 'Nghe nhạc không cần mạng',id:4 },
 
 ]

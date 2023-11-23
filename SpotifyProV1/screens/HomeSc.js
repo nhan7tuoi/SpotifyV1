@@ -161,7 +161,7 @@ export default function App({ navigation }) {
                             </View>
                         </View>
                         <View style={{ width: '100%', height: 50, flexDirection: 'row' }}>
-                            <Pressable style={{ backgroundColor: '#282828', width: 60, height: 30, borderRadius: 20, justifyContent: 'center', alignItems: 'center', marginRight: 20 }}>
+                            <Pressable style={{ backgroundColor: '#1ed760', width: 60, height: 30, borderRadius: 20, justifyContent: 'center', alignItems: 'center', marginRight: 20 }}>
                                 <Text style={{ color: '#fff', fontWeight: '500' }}>Nhạc</Text>
                             </Pressable>
                             <Pressable style={{ backgroundColor: '#282828', width: 180, height: 30, borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
