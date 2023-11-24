@@ -55,12 +55,12 @@ const Podcastsb = ({navigation,route}) => {
                 >
                   <View style={{width:"100%",height:"80%"}}>
                     <Image
-                      source={{ uri: item.image }}
+                      source={{ uri: item.img }}
                       style={{ width: "100%", height: "100%" }}
                       resizeMode="contain"
                     />
                   </View>
-                  <Text style={{fontWeight:'500', color:'#fff',textAlign:'center'}}>{item.title}</Text>
+                  <Text style={{fontWeight:'500', color:'#fff',textAlign:'center'}}>{item.name}</Text>
                   <Text style={{color:"#fff",opacity:0.6,textAlign:'center'}}>{item.author}</Text>
                 </Pressable>
               )}

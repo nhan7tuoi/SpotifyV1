@@ -77,7 +77,11 @@ function AlbumSc({ navigation, route }) {
     }, [accessToken]);
 
     //
-    setListTrack(listMusic);
+    useEffect(() => {
+        setListTrack(listMusic);
+    }, [listMusic]);
+
+    //
     const PlayTrack = async () => {
         if (listMusic.length > 0) {
             setCurrentTrack(listMusic[0]);
@@ -116,6 +120,7 @@ function AlbumSc({ navigation, route }) {
     };
     //
     const onPlaybackStatusUpdate = async (status) => {
+        // console.log(status);
         if (status.isLoaded && status.isPlaying) {
             const progress = status.positionMillis / status.durationMillis;
             setCurrentProgress(progress);
@@ -154,9 +159,9 @@ function AlbumSc({ navigation, route }) {
             setIsPlaying(!isPlaying);
         }
     };
-    console.log(item);
+    // console.log(item);
     return (
-        <LinearGradient style={{ flex: 1,paddingTop:35 }} colors={["#131624", "#040306"]}>
+        <LinearGradient style={{ flex: 1, paddingTop: 35 }} colors={["#131624", "#040306"]}>
             <SafeAreaView>
                 <ScrollView>
                     <View style={{ flex: 1 }}>

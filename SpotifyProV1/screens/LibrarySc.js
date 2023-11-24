@@ -14,7 +14,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
 const LibrarySc = ({ navigation }) => {
-  const [data,setData]= useState([]);
+  const [data, setData] = useState([]);
+  const [podcasts, setPodcasts] = useState([]);
   useFocusEffect(
     useCallback(() => {
       fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1")
@@ -27,12 +28,27 @@ const LibrarySc = ({ navigation }) => {
           });
           Promise.all(promises).then((results) => {
             setData(results);
-            console.log(results);
           });
-        }); 
+        });
     }, [])
   );
-
+  useFocusEffect(
+    useCallback(() => {
+      fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1")
+        .then((response) => response.json())
+        .then((json) => {
+          const promises = json.podcastID.map((element) => {
+            var url =
+              `https://65572970bd4bcef8b61227ce.mockapi.io/topics/${element.topicId}/podcasts/${element.id}`;
+            return fetch(url).then((response) => response.json());
+          });
+          Promise.all(promises).then((results) => {
+            setPodcasts(results);
+          });
+        });
+    }, [])
+  );
+console.log(data.concat(podcasts));
   return (
     <LinearGradient
       style={{ flex: 1, height: "100%" }}
@@ -70,12 +86,17 @@ const LibrarySc = ({ navigation }) => {
         </View>
         <ScrollView style={{ width: "100%" }}>
           <View>
-            {data.length != 0 ? (
+            {data.concat(podcasts).length != 0 ? (
               <FlatList
-                data={data}
+                data={data.concat(podcasts)}
                 renderItem={({ item }) => (
                   <Pressable
-                    onPress={() => navigation.navigate("ArtistsSc", { item })}
+                    onPress={() => {
+                      if (item.role === "Podcast") {
+                        navigation.navigate("Podcastsc", { item });
+                      } else
+                        navigation.navigate("ArtistsSc", { item })
+                    }}
                     style={{
                       width: "90%",
                       flexDirection: "row",
@@ -88,7 +109,7 @@ const LibrarySc = ({ navigation }) => {
                       style={{
                         width: 70,
                         height: 70,
-                        borderRadius: 35,
+                        borderRadius: item.role === "Podcast" ? 5 : 35,
                         margin: 10,
                       }}
                     />

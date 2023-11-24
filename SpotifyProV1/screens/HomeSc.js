@@ -249,7 +249,6 @@ export default function App({ navigation }) {
                                 />
                             </View>
                         </View>
-
                         <View style={{ height: 500, width: '100%',marginVertical: 20  }}>
                             <View>
                                 <Video

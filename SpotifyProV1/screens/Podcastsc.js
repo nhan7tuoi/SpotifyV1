@@ -13,6 +13,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
 
 const Podcastsc = ({ route }) => {
+  const [podcasts,setPodcasts]=useState([]);
+  const [follow, setFollow] = useState(route.params?.item.follow);
+  useEffect(() => {
+    fetch("https://6545ccbefe036a2fa954ce8f.mockapi.io/Library/1")
+        .then((response) => response.json())
+        .then((json) => {
+            setPodcasts(json.podcastID);
+        });
+}, []);
   return (
     <LinearGradient
       style={{ flex: 1, height: "100%" }}
@@ -36,7 +45,7 @@ const Podcastsc = ({ route }) => {
             }}
           >
             <Image
-              source={{ uri: route.params.item.image }}
+              source={{ uri: route.params.item.img }}
               style={{ height: "100%", width: "40%", borderRadius:10}}
             />
             <View
@@ -47,12 +56,12 @@ const Podcastsc = ({ route }) => {
               }}
             >
               <Text style={{ fontSize: 20, fontWeight: "700", color: "#fff" }}>
-                {route.params.item.title}
+                {route.params.item.name}
               </Text>
               <Text style={{ color: "#fff" }}>{route.params.item.author}</Text>
             </View>
           </View>
-          {/* <View>
+          <View>
             {follow ? (
               <Pressable
                 onPress={() => {
@@ -64,14 +73,13 @@ const Podcastsc = ({ route }) => {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify({
-                        podcastID:[],
+                        podcastID:podcasts.filter((item)=>item.id!==route.params.item.id),
                       }),
                     }
                   ).then((response) => {
                     if (response.ok) {
                       fetch(
-                        "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
-                          idArtists,
+                        `https://65572970bd4bcef8b61227ce.mockapi.io/topics/${route.params.item.topicId}/podcasts/${route.params.item.id}`,
                         {
                           method: "PUT",
                           headers: {
@@ -98,7 +106,7 @@ const Podcastsc = ({ route }) => {
                   borderColor: "#fff",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop: 10,
+                  marginVertical:20
                 }}
               >
                 <Text
@@ -122,14 +130,13 @@ const Podcastsc = ({ route }) => {
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify({
-                        PodcastID: [...arrArtists, idArtists],
+                        podcastID: [...podcasts, { id: route.params.item.id, topicId: route.params.item.topicId }],
                       }),
                     }
                   ).then((response) => {
                     if (response.ok) {
                       fetch(
-                        "https://6545e7e8fe036a2fa954f228.mockapi.io/artists/" +
-                          idArtists,
+                        `https://65572970bd4bcef8b61227ce.mockapi.io/topics/${route.params.item.topicId}/podcasts/${route.params.item.id}`,
                         {
                           method: "PUT",
                           headers: {
@@ -170,7 +177,7 @@ const Podcastsc = ({ route }) => {
                 </Text>
               </Pressable>
             )}
-          </View> */}
+          </View>
           <View>
             <FlatList
               data={route.params.item.data}

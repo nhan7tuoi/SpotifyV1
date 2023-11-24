@@ -45,8 +45,8 @@ const SearchSca = ({ navigation }) => {
           </Pressable>
           <TextInput
             style={{
-              width: "100%",
-              paddingLeft: 60,
+              width: "85%",
+              paddingLeft: 40,
               height: "100%",
               fontSize: 16,
               color: "#fff",
